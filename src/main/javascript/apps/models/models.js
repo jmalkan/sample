@@ -1,1 +1,0 @@
-steal('./quick_path.js')

@@ -1,1 +1,0 @@
-steal("funcunit/qunit", "./quick_path_test.js");
