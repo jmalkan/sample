@@ -120,6 +120,7 @@
     <org.springframework.data-version>1.0.3.RELEASE</org.springframework.data-version>
     <org.eclipse.m2e.lifecycle-mapping-version>1.0.0</org.eclipse.m2e.lifecycle-mapping-version>
 
+    <org.apache.shiro-version>1.2.1</org.apache.shiro-version>
     <org.apache.maven.plugins.war-version>2.2</org.apache.maven.plugins.war-version>
     <org.apache.maven.plugins.jxr-version>2.3</org.apache.maven.plugins.jxr-version>
     <org.apache.maven.plugins.pmd-version>2.7.1</org.apache.maven.plugins.pmd-version>
@@ -185,19 +186,76 @@
     <!-- Spring Web MVC Features -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
+      <artifactId>spring-web</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <!-- Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-acl</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
     <!-- Spring Data - MongoDB Features -->
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-mongodb</artifactId>
       <version>${org.springframework.data-version}</version>
+    </dependency>
+    <!-- Apache Shiro Security -->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>${org.apache.shiro-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-web</artifactId>
+      <version>${org.apache.shiro-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-aspectj</artifactId>
+      <version>${org.apache.shiro-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-ehcache</artifactId>
+      <version>${org.apache.shiro-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>${org.apache.shiro-version}</version>
     </dependency>
     <!-- MongoDB Driver -->
     <dependency>
@@ -239,6 +297,12 @@
       <artifactId>mockito-all</artifactId>
       <version>${org.mockito-version}</version>
       <type>jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${org.springframework-version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
