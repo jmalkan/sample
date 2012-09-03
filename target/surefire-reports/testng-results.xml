@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="com.jiggy.sample.HelloWorldTest" duration-ms="90" started-at="2012-09-03T16:25:23Z" finished-at="2012-09-03T16:25:23Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="90" started-at="2012-09-03T16:25:23Z" finished-at="2012-09-03T16:25:23Z">
+      <class name="com.jiggy.sample.HelloWorldTest">
+        <test-method status="PASS" signature="sayHello()[pri:0, instance:com.jiggy.sample.HelloWorldTest@5ca4871e]" name="sayHello" duration-ms="30" started-at="2012-09-03T12:25:23Z" finished-at="2012-09-03T12:25:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sayHello -->
+      </class> <!-- com.jiggy.sample.HelloWorldTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- com.jiggy.sample.HelloWorldTest -->
+</testng-results>

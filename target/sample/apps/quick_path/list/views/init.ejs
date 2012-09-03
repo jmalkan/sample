@@ -1,0 +1,5 @@
+<%for(var i = 0; i < this.length ; i++){%>
+	<li <%= this[i]%>>
+		<%== $.View('//apps/quick_path/list/views/quick_path.ejs', this[i] )%>
+	</li>
+<%}%>

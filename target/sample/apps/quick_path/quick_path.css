@@ -1,0 +1,91 @@
+body {
+  font-family: Lucida Sans, Lucida Grande, Arial, sans-serif;
+  margin: 0;
+  line-height: 22px;
+  width: 960px;
+  margin: 0 auto;
+}
+
+h1 {
+  padding: 30px 0 10px;
+  margin-top: 0;
+  line-height: 30px;
+}
+
+ul {
+  padding: 0 0 0 15px;
+  list-style: none;
+}
+
+a {
+  color: #ae3d26;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #000;
+}
+
+.quick_path {
+  background-color: #fff;
+  min-height: 500px;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 2px 2px 2px 0;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+.quick_path .proposal {
+  position: absolute;
+  top: 50px;
+  left: 225px;
+  width: 510px;
+  min-height: 400px;
+  border: 1px solid;
+}
+
+.quick_path .personalInfo {
+  position: absolute;
+  top: 50px;
+  left: 750px;
+  width: 400px;
+  min-height: 400px;
+  border: 1px solid;
+}
+
+.quick_path .reviewandconfirm {
+  position: absolute;
+  top: 460px;
+  left: 750px;
+  width: 400px;
+  min-height: 40px;
+  border: 1px solid;
+}
+
+input[type='button'],input[type='submit'],.buttons a,.buttons a:link,.buttons a:visited {
+  font-size: 85%;
+  background-color: #1a85c2;
+  color: #fff;
+  width: auto;
+  text-decoration: none;
+  padding: .5em 1em;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+  border: #1a85c2;
+  cursor: pointer;
+  margin-right: 12px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#13b2f1), to(#1879b1) );
+  background-image: -moz-linear-gradient(0 100% 90deg, #1879b1, #13b2f1);
+}
