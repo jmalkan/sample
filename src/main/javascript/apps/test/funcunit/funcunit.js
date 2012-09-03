@@ -1,0 +1,1 @@
+steal("funcunit", 'apps/todos/test/funcunit/funcunit.js', 'apps/quick_path/test/funcunit/funcunit.js');
