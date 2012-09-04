@@ -104,6 +104,8 @@
     <rhino-version>1.7R2</rhino-version>
     <xerces-version>2.10.0</xerces-version>
     <ant-contrib-version>20020829</ant-contrib-version>
+    <commons.collections-version>3.2.1</commons.collections-version>
+    <commons.configuration-version>1.8</commons.configuration-version>
 
     <org.slf4j-version>1.6.6</org.slf4j-version>
     <org.testng-version>6.7</org.testng-version>
@@ -121,6 +123,7 @@
     <org.eclipse.m2e.lifecycle-mapping-version>1.0.0</org.eclipse.m2e.lifecycle-mapping-version>
 
     <org.apache.shiro-version>1.2.1</org.apache.shiro-version>
+    <org.apache.commons.lang3-version>3.1</org.apache.commons.lang3-version>
     <org.apache.maven.plugins.war-version>2.2</org.apache.maven.plugins.war-version>
     <org.apache.maven.plugins.jxr-version>2.3</org.apache.maven.plugins.jxr-version>
     <org.apache.maven.plugins.pmd-version>2.7.1</org.apache.maven.plugins.pmd-version>
@@ -284,6 +287,21 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${org.slf4j-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${org.apache.commons.lang3-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>${commons.collections-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>${commons.configuration-version}</version>
     </dependency>
     <!-- Test scoped dependencies -->
     <dependency>

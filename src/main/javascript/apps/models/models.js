@@ -1,1 +1,1 @@
-steal('./quick_path.js')
+steal('./quick_path.js');

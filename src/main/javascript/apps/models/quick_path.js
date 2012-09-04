@@ -16,4 +16,4 @@ steal('jquery/model', function() {
     },
     /* @Prototype */
     { });
-})
+});

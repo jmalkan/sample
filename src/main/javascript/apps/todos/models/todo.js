@@ -15,4 +15,4 @@ $.Model('Todo',
   },
   /* @Prototype */
   { });
-})
+});
