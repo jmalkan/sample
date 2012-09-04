@@ -19,7 +19,7 @@ public class User extends AbstractEntity {
   private String email;
   
   /**
-   * Creates a new instance of com.cengage.nextbook.org.User.java and Performs
+   * Creates a new instance of com.jiggy.sample.User.java and Performs
    * Initialization
    */
   public User() {
@@ -27,7 +27,7 @@ public class User extends AbstractEntity {
   }
   
   /**
-   * Creates a new instance of com.cengage.nextbook.org.User.java and Performs
+   * Creates a new instance of com.jiggy.sample.User.java and Performs
    * Initialization
    * 
    * @param firstName The First Name.

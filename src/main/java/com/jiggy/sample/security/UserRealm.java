@@ -36,7 +36,7 @@ public class UserRealm extends AuthorizingRealm {
   private UserCredentialsService userCredentialsService;
   
   /**
-   * Creates a new instance of com.cengage.nextbook.web.security.CengageUserRealm.java and Performs Initialization
+   * Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization
    */
   public UserRealm() {
     setAuthenticationTokenClass(UsernamePasswordToken.class);
@@ -58,8 +58,8 @@ public class UserRealm extends AuthorizingRealm {
 //      Set<Permission> permissions = profile.getRole().getPermissions();
 //      Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
 //      
-//      for (Permission cengagePermission:cengagePermissions)
-//          shiroPermissions.add(new WildcardPermission(cengagePermission.getPermissionValue()));
+//      for (Permission permission:permissions)
+//          shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
 //      
 //      SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
       SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
