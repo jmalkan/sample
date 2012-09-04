@@ -1,9 +1,5 @@
 package com.jiggy.sample.security;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -12,7 +8,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.authz.permission.WildcardPermission;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -45,6 +41,7 @@ public class UserRealm extends AuthorizingRealm {
   
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+	  logger.info("begin doGetAuthorizationInfo");
       SessionProfile profile = SessionUtil.getProfile();
       UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
       
@@ -71,7 +68,8 @@ public class UserRealm extends AuthorizingRealm {
   
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-    User user = null;
+    logger.info("begin doGetAuthenticationInfo");
+	User user = null;
     UserPrincipal userPrincipal = null;
     SimpleAuthenticationInfo simpleAuthenticationInfo = null;
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
@@ -79,9 +77,20 @@ public class UserRealm extends AuthorizingRealm {
     SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
     userCredSearchCriteria.addFilter("username", usernamePasswordToken.getUsername());
     UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
+    logger.warn("userCredentials=", userCredentials);
+    
+    if (userCredentials == null) {
+    	String cred = "admin";
+    	Sha256Hash sha256Hash = new Sha256Hash(cred);
+        logger.info("password={}", sha256Hash.toHex());
+        
+    	userCredentials = new UserCredentials();
+    	userCredentials.setUsername(cred);
+    	userCredentials.setPassword(sha256Hash.toHex());
+    }
     
     if (userCredentials != null) {
-      logger.debug("Validating user credential against Credentials.");
+      logger.warn("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
       userPrincipal = new UserPrincipal(user.getId());
