@@ -81,7 +81,7 @@ public class UserRealm extends AuthorizingRealm {
     UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
     
     if (userCredentials != null) {
-      logger.debug("Validating user credential against Nextbooks Credentials.");
+      logger.debug("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
       userPrincipal = new UserPrincipal(user.getId());

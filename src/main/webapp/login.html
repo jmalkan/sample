@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+    <title>Sample App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=860, minimum-scale=0.87, maximum-scale=0.87, user-scalable=no" />
+    
+    <style>
+      body{height:100%;padding:0;}
+      .container{margin:0;padding:80px 0 0 0;height:auto;}
+    </style>
+  </head>
+  <body class="body logoutpage">
+    <div class="container">
+      <div id="logout">
+        <div class="error" style="display:none">
+          <ul>
+            <li>Invalid Username or Password.</li>
+          </ul>     
+        </div>
+        <form id="loginForm" action="/login" method="POST">
+          <div class="login clearfix">
+            <div class="form">
+              <p class="field">
+                <label class="alignment" for="_username_id">Username:</label>
+                <input type="text" id="_username_id" name="username" class="auto-focus" />
+              </p>
+              <p class="field">
+                <label class="alignment" for="_password_id">Password:</label>
+                <input type="password" id="_password_id" name="password" />
+              </p>
+              <p class="field">
+                <span class="alignment">&nbsp;</span>
+                <input type="checkbox" id="_rememberMe_id" name="rememberMe" />
+                <label for="_rememberMe_id">Remember Me</label>
+              </p>
+            </div>
+            <div class="submit">
+              <p class="submit">
+                <input type="submit" class="goButton" value="Go" />
+              </p>
+            </div>
+          </div>
+          <input id="redirectTo" type="hidden" name="redirectTo"/>
+        </form>
+      </div>
+    </div>
+ 
+    <script src="../jquery/jquery.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('.error').hide();
+        $('.auto-focus:first').focus();
+
+        var errorMatch = location.search.match(/error\=true/);
+        if (errorMatch)
+          showError();
+
+        var redirectMatch = location.search.match(/\?redirectTo\=(.*)$/);
+        var redirectUrl = redirectMatch && redirectMatch[1];
+        if (redirectUrl)
+          $('#redirectTo').val(redirectUrl);
+      });
+      
+      function showError(err)
+        $('.error').show();
+    </script>
+  </body>
+</html>

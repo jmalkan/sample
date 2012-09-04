@@ -9,12 +9,12 @@
                            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-  <bean id="springSecurityFilterChain" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
     <property name="securityManager" ref="securityManager"/>
-      <!-- override these for application-specific URLs if you like:
-      <property name="loginUrl" value="/login.jsp"/>
-      <property name="successUrl" value="/home.jsp"/>
-      <property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
+      <!-- override these for application-specific URLs if you like: -->
+      <property name="loginUrl" value="/login.html"/>
+      <property name="successUrl" value="/index.jsp"/>
+      <property name="unauthorizedUrl" value="/unauthorized.html"/>
       <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean  -->
       <!-- defined will be automatically acquired and available via its beanName in chain        -->
       <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
@@ -26,7 +26,8 @@
       <property name="filterChainDefinitions">
         <value>
             # some example chain definitions:
-            /** = authc, authz
+            /** = authc
+            #/** = authc, authz
             # more URL-to-FilterChain definitions here
         </value>
       </property>
@@ -52,4 +53,11 @@
   <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
   <!-- security datasource: -->
   <bean id="userRealm" class="com.jiggy.sample.security.UserRealm"/>
+  
+  <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
+  <!-- the lifecycleBeanProcessor has run: -->
+  <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+  <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <property name="securityManager" ref="securityManager"/>
+  </bean>
 </beans>
