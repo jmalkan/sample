@@ -17,9 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of the basic forms authentication filter which supports: -forcing
- * redirect to change password screen if user is marked as such -default start
- * pages per user role
+ * Extension of the basic forms authentication filter which supports: -forcing redirect to change password screen if user is marked as such -default
+ * start pages per user role
  * 
  * Created on Sept 1, 2012
  * 
@@ -27,59 +26,57 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  */
 public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
-	private static final Logger logger = LoggerFactory.getLogger(UserFormAuthenticationFilter.class);
-
-//	private String loginFormUrl;
-//	
-//	
-//	public UserFormAuthenticationFilter() {
-//		this.loginFormUrl = "/login.html";
-//		setLoginUrl("/login");
-//	}
-//
-//	public String getLoginFormUrl() {
-//		return this.loginFormUrl;
-//	}
-//
-//	public void setLoginFormUrl(String loginFormUrl) {
-//		this.loginFormUrl = loginFormUrl;
-//	}
-//
-	@Override
-	protected boolean onLoginSuccess(AuthenticationToken token,Subject subject,
-									 ServletRequest request, ServletResponse response) throws Exception {
-		logger.info("onLoginSuccess");
-		return true;
-	}
-
-	@Override
-	protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
-									 ServletRequest request, ServletResponse response) {
-		logger.info("onLoginFailure");
-//	  try {
-//		Map<String, String> params = new HashMap<String, String>();
-//		params.put("error", "true");
-//		WebUtils.issueRedirect(request, response, loginFormUrl, params);
-//		return false;
-//	  } catch (IOException ex) {
-		return super.onLoginFailure(token, e, request, response);
-//	  }
-	}
-
-	@Override
-	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-		logger.info("onAccessDenied");
-//		if (!isLoginRequest(request, response) && !isLoginSubmission(request, response)) {
-//			WebUtils.toHttp(response).setStatus(Status.UNAUTHORIZED.getStatusCode());
-//			return false;
-//		}
-
-		return super.onAccessDenied(request, response);
-	}
-	@Override
-	protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
-		logger.info("setFailureAttribute");
-	  String message = ae.getMessage();
-	  request.setAttribute(getFailureKeyAttribute(), message);
-	}
+  private static final Logger logger = LoggerFactory.getLogger(UserFormAuthenticationFilter.class);
+  
+//  private String loginFormUrl;
+//  
+//  public UserFormAuthenticationFilter() {
+//    this.loginFormUrl = "/login.html";
+//    setLoginUrl("/login");
+//  }
+//  
+//  public String getLoginFormUrl() {
+//    return this.loginFormUrl;
+//  }
+//  
+//  public void setLoginFormUrl(String loginFormUrl) {
+//    this.loginFormUrl = loginFormUrl;
+//  }
+  
+  @Override
+  protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
+    logger.info("onLoginSuccess");
+    return true;
+  }
+  
+  @Override
+  protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
+    logger.info("onLoginFailure");
+//    try {
+//      Map<String, String> params = new HashMap<String, String>();
+//      params.put("error", "true");
+//      WebUtils.issueRedirect(request, response, loginFormUrl, params);
+//      return false;
+//    } catch (IOException ex) {
+      return super.onLoginFailure(token, e, request, response);
+//    }
+  }
+  
+  @Override
+  protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+    logger.info("onAccessDenied WebUtils.toHttp(request).getRequestURL()= {}", WebUtils.toHttp(request).getRequestURL());
+//    if (!isLoginRequest(request, response) && !isLoginSubmission(request, response)) {
+//      WebUtils.toHttp(response).setStatus(Status.UNAUTHORIZED.getStatusCode());
+//      return false;
+//    }
+    
+    return super.onAccessDenied(request, response);
+  }
+  
+  @Override
+  protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
+    logger.info("setFailureAttribute");
+    String message = ae.getMessage();
+    request.setAttribute(getFailureKeyAttribute(), message);
+  }
 }

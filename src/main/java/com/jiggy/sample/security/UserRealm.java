@@ -35,65 +35,66 @@ public class UserRealm extends AuthorizingRealm {
    * Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization
    */
   public UserRealm() {
+    logger.info("Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization");
     setAuthenticationTokenClass(UsernamePasswordToken.class);
-    setCredentialsMatcher(new HashedCredentialsMatcher(Sha512Hash.ALGORITHM_NAME));
+    //setCredentialsMatcher(new HashedCredentialsMatcher(Sha512Hash.ALGORITHM_NAME));
   }
   
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-	  logger.info("begin doGetAuthorizationInfo");
-      SessionProfile profile = SessionUtil.getProfile();
-      UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
-      
-//      if (profile == null) {
-//          UserOrgProfile userOrgProfile =
-//              this.userOrgProfileServiceProvider.get()
-//                                                .findByUserOrg(userPrincipal.getSourcedId(), userPrincipal.getOrgId());
-//          profile = userOrgProfile.toSessionProfile();
-//      }
-//      Set<String> roles = Sets.newHashSet(profile.getRole().getName());
-//      Set<Permission> permissions = profile.getRole().getPermissions();
-//      Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
-//      
-//      for (Permission permission:permissions)
-//          shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
-//      
-//      SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
-      SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
-//      
-//      authInfo.setObjectPermissions(shiroPermissions);
-//      
-      return authInfo;
+    logger.info("begin doGetAuthorizationInfo");
+//    SessionProfile profile = SessionUtil.getProfile();
+//    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+    
+//    if (profile == null) {
+//      UserOrgProfile userOrgProfile = this.userOrgProfileServiceProvider.get().findByUserOrg(userPrincipal.getSourcedId(), userPrincipal.getOrgId());
+//      profile = userOrgProfile.toSessionProfile();
+//    }
+//    Set<String> roles = Sets.newHashSet(profile.getRole().getName());
+//    Set<Permission> permissions = profile.getRole().getPermissions();
+//    Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
+//    
+//    for (Permission permission : permissions)
+//      shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
+//    
+//    SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
+    SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
+//    
+//    authInfo.setObjectPermissions(shiroPermissions);
+//    
+    return authInfo;
   }
   
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-    logger.info("begin doGetAuthenticationInfo");
-	User user = null;
+    logger.info("begin doGetAuthenticationInfo getCredentialsMatcher {}", getCredentialsMatcher());
+    
+    User user = null;
     UserPrincipal userPrincipal = null;
     SimpleAuthenticationInfo simpleAuthenticationInfo = null;
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     
     SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
     userCredSearchCriteria.addFilter("username", usernamePasswordToken.getUsername());
-    UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
+    UserCredentials userCredentials = null; //userCredentialsService.findOne(userCredSearchCriteria);
     logger.warn("userCredentials=", userCredentials);
     
     if (userCredentials == null) {
-    	String cred = "admin";
-    	Sha256Hash sha256Hash = new Sha256Hash(cred);
-        logger.info("password={}", sha256Hash.toHex());
-        
-    	userCredentials = new UserCredentials();
-    	userCredentials.setUsername(cred);
-    	userCredentials.setPassword(sha256Hash.toHex());
+      String cred = "admin";
+      Sha256Hash sha256Hash = new Sha256Hash(cred);
+      logger.info("password={}", sha256Hash.toHex());
+      
+      userCredentials = new UserCredentials();
+      userCredentials.setUsername(cred);
+      userCredentials.setPassword(sha256Hash.toHex());
     }
     
     if (userCredentials != null) {
       logger.warn("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
-      userPrincipal = new UserPrincipal(user.getId());
+      userPrincipal = new UserPrincipal(1l);
+//      userPrincipal = new UserPrincipal(user.getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }

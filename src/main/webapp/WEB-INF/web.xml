@@ -36,6 +36,10 @@
     <servlet-name>spring-mvc-dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
+      <param-name>publishEvents</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>/WEB-INF/applicationContext-environment.xml</param-value>
     </init-param>
