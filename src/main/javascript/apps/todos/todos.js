@@ -9,7 +9,7 @@ steal('jquery/class',
       }, {
       "init" : function(element, options) {
         this.reset(false, true);
-        $("#todo", element).html(options.template, Todo.findAll())
+        $("#todo", element).html(options.template, Todo.findAll());
       },
       "li click" : function(li) {
         var text = li.text().trim().split("X - ");
@@ -56,5 +56,5 @@ steal('jquery/class',
     
     $(function() {
       $("#todos").todos(); // create a todos widget with a list
-    })
+    });
 });

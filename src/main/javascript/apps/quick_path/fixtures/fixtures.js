@@ -2,27 +2,27 @@
 
 steal("jquery/dom/fixture", function() {
   // findAll
-  $.fixture("GET /quick_paths", function() {
+  $.fixture("GET /service/quick_paths", function() {
     return;
   });
   
   // findOne
-  $.fixture("GET /quick_paths/{id}", function(orig) {
+  $.fixture("GET /service/quick_paths/{id}", function(orig) {
     return;
   });
   
   // create
-  $.fixture("POST /todos", function(form) {
+  $.fixture("POST /service/quick_paths", function(form) {
 	return;
   });
   
   // update
-  $.fixture("PUT /todos/{id}", function(form) {
+  $.fixture("PUT /service/quick_paths/{id}", function(form) {
     return;
   });
   
   // destroy
-  $.fixture("DELETE /todos/{id}", function() {
+  $.fixture("DELETE /service/quick_paths/{id}", function() {
     return;
   });
-})
+});

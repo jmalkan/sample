@@ -9,29 +9,30 @@ steal("jquery/dom/fixture").then(function($) {
     });
   })
   */
-    var TODOS = [new Todo({id: 1, name: "wake up"}), new Todo({id: 2, name: "take out trash"}), new Todo({id: 3, name: "do dishes"})];
+  
+  var TODOS = [new Todo({id: 1, name: "wake up"}), new Todo({id: 2, name: "take out trash"}), new Todo({id: 3, name: "do dishes"})];
   var id = TODOS.length + 1;
   
   
   // findAll
-  $.fixture("GET /todos", function() {
-    return [TODOS]
+  $.fixture("GET /service/todos", function() {
+    return [TODOS];
   });
   
   // findOne
-  $.fixture("GET /todos/{id}", function(orig) {
+  $.fixture("GET /service/todos/{id}", function(orig) {
     return TODOS[(+orig.data.id)-1];
   });
   
   // create
-  $.fixture("POST /todos", function(form) {
+  $.fixture("POST /service/todos", function(form) {
 	var newTodo = new Todo({"id": id++, "name": form.data.name});
     TODOS.push(newTodo);
     return newTodo;
   });
   
   // update
-  $.fixture("PUT /todos/{id}", function(form) {
+  $.fixture("PUT /service/todos/{id}", function(form) {
 	// issue with id being 1 higher then the one selected.
 	var index = form.data.id - 1;
 	var todo = TODOS[index];
@@ -42,7 +43,7 @@ steal("jquery/dom/fixture").then(function($) {
   });
   
   // destroy
-  $.fixture("DELETE /todos/{id}", function() {
+  $.fixture("DELETE /service/todos/{id}", function() {
     return {};
   });
-})
+});

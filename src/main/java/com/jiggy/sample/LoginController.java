@@ -20,7 +20,7 @@ public class LoginController {
   @Autowired
   Comparator<String> comparator;
   
-  @RequestMapping(value = "/")
+  @RequestMapping(value = "/todos")
   public String home() {
     logger.info("HomeController: Passing through...");
     return "login.html";

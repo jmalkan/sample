@@ -1,2 +1,2 @@
 // map fixtures for this application
-steal("jquery/dom/fixture", "./todos.js")
+steal("jquery/dom/fixture", "./todos.js");

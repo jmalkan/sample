@@ -27,14 +27,12 @@
     </property -->
     <property name="filterChainDefinitions">
       <value>
-        # some example chain definitions:
         [urls]
         /logout = anon
         /error = anon
         /jquery/** = anon
+        /service/** = authc_jm, authz_jm
         /** = authc_jm
-        #/** = authc_jm, authz_jm
-        # more URL-to-FilterChain definitions here
       </value>
     </property>
   </bean>
@@ -44,7 +42,7 @@
   <!-- to the 'filterChainDefinitions' property.  Or you can manually/explicitly add them     -->
   <!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
   <bean id="authc_jm" class="com.jiggy.sample.security.UserFormAuthenticationFilter"/>
-  <!-- bean id="authz_jm" class="com.jiggy.sample.security.UserFormAuthenticationFilter"/ -->
+  <bean id="authz_jm" class="com.jiggy.sample.security.HttpMethodPermissionFilter"/>
 
   <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
     <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->

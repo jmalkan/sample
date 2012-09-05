@@ -4,4 +4,4 @@ steal("funcunit/qunit", function(){
 	test("quick_path testing works", function(){
 		ok(true,"an assert is run");
 	});
-})
+});
