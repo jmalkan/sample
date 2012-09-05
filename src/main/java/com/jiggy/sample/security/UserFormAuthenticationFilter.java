@@ -46,7 +46,7 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
   @Override
   protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
     logger.info("onLoginSuccess");
-    return true;
+    return super.onLoginSuccess(token, subject, request, response);
   }
   
   @Override
@@ -77,6 +77,7 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
   protected void setFailureAttribute(ServletRequest request, AuthenticationException ae) {
     logger.info("setFailureAttribute");
     String message = ae.getMessage();
+    request.setAttribute("error", "true");
     request.setAttribute(getFailureKeyAttribute(), message);
   }
 }
