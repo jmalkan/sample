@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.jiggy.sample.security.UserRealm;
-
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-  private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
+  private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
   
   @Autowired
   Comparator<String> comparator;
@@ -26,7 +24,7 @@ public class HomeController {
   @RequestMapping(value = "/home")
   public String home() {
     logger.info("HomeController: Passing through...");
-    return "home";
+    return "WEB-INF/views/home.jsp";
   }
   
   @RequestMapping(value = "/compare", method = RequestMethod.GET)
@@ -37,6 +35,6 @@ public class HomeController {
     String output = "According to our Comparator, '" + input1 + "' is " + inEnglish + "'" + input2 + "'";
     
     model.addAttribute("output", output);
-    return "compareResult";
+    return "WEB-INF/views/compareResult.html";
   }
 }
