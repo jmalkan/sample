@@ -5,22 +5,22 @@ steal("jquery/dom/fixture", function() {
   $.fixture("GET /sample/service/quick_paths", function() {
     return;
   });
-  
+
   // findOne
   $.fixture("GET /sample/service/quick_paths/{id}", function(orig) {
     return;
   });
-  
+
   // create
   $.fixture("POST /sample/service/quick_paths", function(form) {
-	return;
+    return;
   });
-  
+
   // update
   $.fixture("PUT /sample/service/quick_paths/{id}", function(form) {
     return;
   });
-  
+
   // destroy
   $.fixture("DELETE /sample/service/quick_paths/{id}", function() {
     return;

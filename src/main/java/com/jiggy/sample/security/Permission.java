@@ -5,8 +5,8 @@ public class Permission {
   private String operation;
   
   public Permission(String resource, String operation) {
-      this.resource = resource;
-      this.operation = operation;
+    this.resource = resource;
+    this.operation = operation;
   }
   
   /**
@@ -15,7 +15,7 @@ public class Permission {
    * @return the resource
    */
   public String getResource() {
-      return this.resource;
+    return this.resource;
   }
   
   /**
@@ -24,7 +24,7 @@ public class Permission {
    * @param resource the resource to set
    */
   public void setResource(String resource) {
-      this.resource = resource;
+    this.resource = resource;
   }
   
   /**
@@ -33,7 +33,7 @@ public class Permission {
    * @return the operation
    */
   public String getOperation() {
-      return this.operation;
+    return this.operation;
   }
   
   /**
@@ -42,7 +42,7 @@ public class Permission {
    * @param operation the operation to set
    */
   public void setOperation(String operation) {
-      this.operation = operation;
+    this.operation = operation;
   }
   
   /**
@@ -51,6 +51,6 @@ public class Permission {
    * @return The complete permission
    */
   public String getPermissionValue() {
-      return this.getResource() + ":" + this.getOperation();
+    return this.getResource() + ":" + this.getOperation();
   }
 }

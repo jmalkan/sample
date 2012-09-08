@@ -26,19 +26,19 @@ steal("jquery/dom/fixture").then(function($) {
   
   // create
   $.fixture("POST /sample/service/todos", function(form) {
-	var newTodo = new Todo({"id": id++, "name": form.data.name});
+	  var newTodo = new Todo({"id": id++, "name": form.data.name});
     TODOS.push(newTodo);
     return newTodo;
   });
   
   // update
   $.fixture("PUT /sample/service/todos/{id}", function(form) {
-	// issue with id being 1 higher then the one selected.
-	var index = form.data.id - 1;
-	var todo = TODOS[index];
-	todo.name = form.data.name;
-	TODOS[index] = todo;
-	
+	  // issue with id being 1 higher then the one selected.
+	  var index = form.data.id - 1;
+	  var todo = TODOS[index];
+	  todo.name = form.data.name;
+	  TODOS[index] = todo;
+	  
     return todo;
   });
   

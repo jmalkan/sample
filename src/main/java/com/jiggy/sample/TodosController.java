@@ -16,30 +16,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Handles requests for the application todos request.
  */
 @Controller
-//@RequestMapping(value = "/sample/service/todos")
+// @RequestMapping(value = "/sample/service/todos")
 public class TodosController {
   private static final Logger logger = LoggerFactory.getLogger(TodosController.class);
   
-
   @ResponseBody
   @RequestMapping(value = "sample/service/todos", method = RequestMethod.GET)
   public JSONArray findAll() {
     logger.info("findAll");
-	JSONObject todo = null;
-	JSONArray todos = new JSONArray();
-	try {
-		todo = new JSONObject("{id: 1, name: wake up}");
-	} catch (JSONException e) {
-		e.printStackTrace();
-	}
-	
-	todos.put(todo);
-	
+    JSONObject todo = null;
+    JSONArray todos = new JSONArray();
+    try {
+      todo = new JSONObject("{id: 1, name: wake up}");
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    
+    todos.put(todo);
+    
     return todos;
   }
-
+  
   @ResponseBody
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces="application/json")
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
   public JSONObject findById(@PathVariable String id) {
     logger.info("id = {}", id);
     JSONObject todo = null;
@@ -48,12 +47,12 @@ public class TodosController {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-
+    
     return todo;
   }
-
+  
   @ResponseBody
-  @RequestMapping(value = "/find", method = RequestMethod.GET, consumes="application/json", produces="application/json")
+  @RequestMapping(value = "/find", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
   public JSONArray find(@RequestBody String body) {
     logger.info("find body: {}", body);
     JSONObject todo = null;
@@ -63,9 +62,9 @@ public class TodosController {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-
+    
     todos.put(todo);
-
+    
     return todos;
   }
 }

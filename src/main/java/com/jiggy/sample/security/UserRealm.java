@@ -21,7 +21,7 @@ import com.jiggy.sample.framework.searchengine.DefaultSearchCriteria;
 import com.jiggy.sample.framework.searchengine.SearchCriteria;
 
 /**
- * NextBooks form based authentication realm.
+ * Form based authentication realm.
  * 
  * Created on Sept 1, 2012
  * 
@@ -39,31 +39,30 @@ public class UserRealm extends AuthorizingRealm {
   public UserRealm() {
     logger.info("Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization");
     setAuthenticationTokenClass(UsernamePasswordToken.class);
-    //setCredentialsMatcher(new HashedCredentialsMatcher(Sha512Hash.ALGORITHM_NAME));
   }
   
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-    SessionProfile profile = SessionUtil.getProfile();
-    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+    // SessionProfile profile = SessionUtil.getProfile();
+    // UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
     
-//    if (profile == null) {
-//      UserProfile userProfile = this.userProfileService.find();
-//      profile = userProfile.toSessionProfile();
-//    }
+    // if (profile == null) {
+    // UserProfile userProfile = this.userProfileService.find();
+    // profile = userProfile.toSessionProfile();
+    // }
     Set<String> roles = new HashSet<String>();
     roles.add("ADMIN");
-//    Set<String> roles = Sets.newHashSet(profile.getRole().getName());
-//    Set<Permission> permissions = profile.getRole().getPermissions();
+    // Set<String> roles = Sets.newHashSet(profile.getRole().getName());
+    // Set<Permission> permissions = profile.getRole().getPermissions();
     
     Set<Permission> permissions = new HashSet<Permission>();
     permissions.add(new Permission("todos", "read"));
     Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
- 
+    
     for (Permission permission : permissions)
       shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
-//    
+    //
     SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
     
     authInfo.setObjectPermissions(shiroPermissions);
@@ -82,7 +81,7 @@ public class UserRealm extends AuthorizingRealm {
     
     SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
     userCredSearchCriteria.addFilter("username", usernamePasswordToken.getUsername());
-    UserCredentials userCredentials = null; //userCredentialsService.findOne(userCredSearchCriteria);
+    UserCredentials userCredentials = null; // userCredentialsService.findOne(userCredSearchCriteria);
     logger.warn("userCredentials=", userCredentials);
     
     if (userCredentials == null) {
@@ -100,7 +99,7 @@ public class UserRealm extends AuthorizingRealm {
       user = userCredentials.getUser();
       
       userPrincipal = new UserPrincipal(1l);
-//      userPrincipal = new UserPrincipal(user.getId());
+      // userPrincipal = new UserPrincipal(user.getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }
