@@ -8,11 +8,11 @@ steal('jquery/model', function() {
   $.Model('Apps.Models.QuickPath',
     /* @Static */
     {
-      findAll: "/service/quick_paths.json",
-      findOne : "/service/quick_paths/{id}.json",
-      create : "/service/quick_paths.json",
-      update : "/service/quick_paths/{id}.json",
-      destroy : "/service/quick_paths/{id}.json"
+      findAll: "/sample/service/quick_paths.json",
+      findOne : "/sample/service/quick_paths/{id}.json",
+      create : "/sample/service/quick_paths.json",
+      update : "/sample/service/quick_paths/{id}.json",
+      destroy : "/sample/service/quick_paths/{id}.json"
     },
     /* @Prototype */
     { });

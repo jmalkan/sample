@@ -59,10 +59,9 @@ public class HttpMethodPermissionFilter extends org.apache.shiro.web.filter.auth
 
 		refreshPermissionsIfNeeded();
 		boolean result = super.isAccessAllowed(request, response, perms);
-		logger.debug(
-				"isAccessAllowed(): service={}, perms={}, mappedValue={}, RequestURI={} result={}",
-				new Object[] { resourseName, perms, mappedValue, requestURI,
-						Boolean.valueOf(result) });
+		logger.info("isAccessAllowed(): service={}, perms={}, mappedValue={}, RequestURI={} result={}",
+					new Object[] { resourseName, perms, mappedValue, requestURI, Boolean.valueOf(result)});
+		
 		return result;
 	}
 	
@@ -76,7 +75,6 @@ public class HttpMethodPermissionFilter extends org.apache.shiro.web.filter.auth
 	@Override
 	protected void postHandle(ServletRequest request, ServletResponse response)
 			throws Exception {
-
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String method = httpServletRequest.getMethod();
 		String requestURI = httpServletRequest.getRequestURI();
@@ -92,31 +90,24 @@ public class HttpMethodPermissionFilter extends org.apache.shiro.web.filter.auth
 		return resource.equals("master") && !"read".equals(action);
 	}
 
-	private String getHttpMethodAction(String id, String restMethodAction,
-			String requestURI, String requestURISuffix) {
-
+	private String getHttpMethodAction(String id, String restMethodAction, String requestURI, String requestURISuffix) {
 		String resourseName = this.getResourseName(requestURI);
 		String operationName = resourseName;
 
 		if (StringUtils.isBlank(id) || FIND_ALL_ID.equals(id)) {
-			if (!StringUtils.isBlank(requestURISuffix)
-					&& !requestURISuffix.contains(FIND_PATH.substring(1)))
+			if (!StringUtils.isBlank(requestURISuffix) && !requestURISuffix.contains(FIND_PATH.substring(1)))
 				operationName = requestURISuffix;
 		} else {
-			if (StringUtils.isBlank(requestURISuffix)
-					|| !requestURISuffix.contains(FIND_PATH.substring(1)))
-				operationName = this.getRequestURISuffix(requestURI.substring(
-						0, requestURI.length() - (id.length() + 1)));
+			if (StringUtils.isBlank(requestURISuffix) || !requestURISuffix.contains(FIND_PATH.substring(1)))
+				operationName = this.getRequestURISuffix(requestURI.substring(0, requestURI.length() - (id.length() + 1)));
 		}
 
 		if (resourseName.equals(operationName))
 			operationName = restMethodAction;
 		else {
 			SearchCriteria searchCriteria = new DefaultSearchCriteria();
-			searchCriteria.addFilter(new FilterTerm(
-					"resourceOperation.resource", resourseName));
-			searchCriteria.addFilter(new FilterTerm(
-					"resourceOperation.operation", operationName));
+			searchCriteria.addFilter(new FilterTerm("resourceOperation.resource", resourseName));
+			searchCriteria.addFilter(new FilterTerm("resourceOperation.operation", operationName));
 			List<Permission> permissions = null; //this.permissionService.get().find(searchCriteria);
 
 			if (permissions == null || permissions.isEmpty())

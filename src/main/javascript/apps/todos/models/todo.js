@@ -7,11 +7,11 @@ steal(function($) {
    */
 $.Model('Todo', 
   /* @Static */ {
-    findAll: "/service/todos",
-    findOne : "/service/todos/{id}",
-    create : "/service/todos",
-    update : "/service/todos/{id}",
-    destroy : "/service/todos/{id}"
+    findAll: "/sample/service/todos",
+    findOne : "/sample/service/todos/{id}",
+    create : "/sample/service/todos",
+    update : "/sample/service/todos/{id}",
+    destroy : "/sample/service/todos/{id}"
   },
   /* @Prototype */
   { });

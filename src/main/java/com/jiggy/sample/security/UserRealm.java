@@ -1,15 +1,17 @@
 package com.jiggy.sample.security;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.permission.WildcardPermission;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
@@ -43,25 +45,29 @@ public class UserRealm extends AuthorizingRealm {
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-//    SessionProfile profile = SessionUtil.getProfile();
-//    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+    SessionProfile profile = SessionUtil.getProfile();
+    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
     
 //    if (profile == null) {
-//      UserOrgProfile userOrgProfile = this.userOrgProfileServiceProvider.get().findByUserOrg(userPrincipal.getSourcedId(), userPrincipal.getOrgId());
-//      profile = userOrgProfile.toSessionProfile();
+//      UserProfile userProfile = this.userProfileService.find();
+//      profile = userProfile.toSessionProfile();
 //    }
+    Set<String> roles = new HashSet<String>();
+    roles.add("ADMIN");
 //    Set<String> roles = Sets.newHashSet(profile.getRole().getName());
 //    Set<Permission> permissions = profile.getRole().getPermissions();
-//    Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
+    
+    Set<Permission> permissions = new HashSet<Permission>();
+    permissions.add(new Permission("todos", "read"));
+    Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
+ 
+    for (Permission permission : permissions)
+      shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
 //    
-//    for (Permission permission : permissions)
-//      shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
-//    
-//    SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
-    SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
-//    
-//    authInfo.setObjectPermissions(shiroPermissions);
-//    
+    SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
+    
+    authInfo.setObjectPermissions(shiroPermissions);
+    
     return authInfo;
   }
   
