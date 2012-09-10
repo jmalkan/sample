@@ -11,25 +11,29 @@ import com.jiggy.sample.framework.entity.AbstractEntity;
  * @version $Revision$
  */
 public class UserCredentials extends AbstractEntity {
-  private static final long serialVersionUID = -4223583692168687276L;
+  private static final long serialVersionUID = 1L;
   
-  public static final String FORCE_PASSWORD_CHANGE_SESSION_ATTRIBUTE = "UserCredentials.mustChangePasswordOnLogin";
-  
-  private String username;
   private String password;
-  private Boolean mustChangePasswordOnLogin = Boolean.FALSE;
+  private Boolean changePassword = Boolean.FALSE;
   
   private User user;
+
   
-  
-  public String getUsername() {
-      return username;
+  /**
+   * Creates a new instance of com.jiggy.sample.securit.UserCredentials.java and Performs Initialization
+   * 
+   * @param password The password.
+   * @param changePassword The changePassword indicator.
+   * @param user The user object.
+   */
+  public UserCredentials(String password, Boolean changePassword, User user) {
+    super();
+    
+    this.password = password;
+    this.changePassword = changePassword;
+    this.user = user;
   }
-  
-  public void setUsername(String username) {
-      this.username = username;
-  }
-  
+
   public String getPassword() {
       return password;
   }
@@ -38,12 +42,12 @@ public class UserCredentials extends AbstractEntity {
       this.password = password;
   }
   
-  public Boolean getMustChangePasswordOnLogin() {
-      return mustChangePasswordOnLogin;
+  public Boolean getChangePassword() {
+      return this.changePassword;
   }
   
-  public void setMustChangePasswordOnLogin(Boolean mustChangePasswordOnLogin) {
-      this.mustChangePasswordOnLogin = mustChangePasswordOnLogin;
+  public void setChangePassword(Boolean changePassword) {
+      this.changePassword = changePassword;
   }
 
   /**

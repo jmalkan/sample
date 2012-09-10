@@ -1,10 +1,30 @@
 package com.jiggy.sample.security;
 
-public class Permission {
+import com.jiggy.sample.framework.entity.AbstractEntity;
+
+/**
+ * An entity to represent Permission.
+ * 
+ * Created on Sept 1, 2012
+ * 
+ * @author jmalkan
+ * @version $Revision$
+ */
+public class Permission extends AbstractEntity {
+  private static final long serialVersionUID = 1L;
   private String resource;
   private String operation;
+
   
+  /**
+   * Creates a new instance of com.jiggy.sample.securit.Permission.java and Performs Initialization
+   * 
+   * @param resource The Resource Name.
+   * @param operation The Operation Name.
+   */
   public Permission(String resource, String operation) {
+    super();
+    
     this.resource = resource;
     this.operation = operation;
   }

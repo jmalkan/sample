@@ -14,60 +14,53 @@ public class User extends AbstractEntity {
   private static final long serialVersionUID = 1L;
   private String firstName;
   private String lastName;
-  private String username;
-  private String password;
+  private String userName;
   private String email;
   
-  /**
-   * Creates a new instance of com.jiggy.sample.User.java and Performs
-   * Initialization
-   */
-  public User() {
-      super();
-  }
+  private Role role;
+  
   
   /**
-   * Creates a new instance of com.jiggy.sample.User.java and Performs
-   * Initialization
+   * Creates a new instance of com.jiggy.sample.security.User.java and Performs Initialization
    * 
    * @param firstName The First Name.
-   * @param lname The Last Name.
+   * @param lastName The Last Name.
+   * @param userName The User Name.
+   * @param email The Email address.
+   * @param role The Users Role.
    */
-  public User(String firstName, String lastName) {
-      this.firstName = firstName;
-      this.lastName = lastName;
+  public User(String firstName, String lastName, String userName, String email, Role role) {
+    super();
+    
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.userName = userName;
+    this.email = email;
+    this.role = role;
   }
-
+  
   public String getFirstName() {
     return firstName;
   }
-
+  
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
-
+  
   public String getLastName() {
     return lastName;
   }
-
+  
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
-
-  public String getUsername() {
-    return username;
+  
+  public String getUserName() {
+    return userName;
   }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
   
   public String getEmail() {
@@ -76,5 +69,13 @@ public class User extends AbstractEntity {
   
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 }

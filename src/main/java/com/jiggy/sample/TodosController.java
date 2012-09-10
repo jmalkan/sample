@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Handles requests for the application todos request.
  */
 @Controller
-// @RequestMapping(value = "/sample/service/todos")
+@RequestMapping(value = "/sample/service/todos")
 public class TodosController {
   private static final Logger logger = LoggerFactory.getLogger(TodosController.class);
   
   @ResponseBody
-  @RequestMapping(value = "sample/service/todos", method = RequestMethod.GET)
+  @RequestMapping(method = RequestMethod.GET)
   public JSONArray findAll() {
     logger.info("findAll");
     JSONObject todo = null;

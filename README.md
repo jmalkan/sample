@@ -51,3 +51,15 @@ This is a sample project demonstrating use of Spring, Apache Shiro, Hibernate, a
     Tomcat from command line before configuring. Tomcat Manager page may not work.
 
 ## Code Formatting
+
+
+
+## TODO
+create service, dao layer
+integrate with MongoDB, JDO/SpringData
+incorporate ui libraries for security, timeouts, modal, analytics
+configure audit, error interceptors
+logout
+
+mvn clean install tomcat:redeploy
+mvn dbmaintain:clearDatabase dbmaintain:updateDatabase

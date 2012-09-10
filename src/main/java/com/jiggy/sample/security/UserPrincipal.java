@@ -3,7 +3,7 @@ package com.jiggy.sample.security;
 import java.io.Serializable;
 
 /**
- * The NextBook User Principal object used for Authentication.
+ * The User Principal object used for Authentication.
  *
  * Created on Sept 1, 2012
  * 

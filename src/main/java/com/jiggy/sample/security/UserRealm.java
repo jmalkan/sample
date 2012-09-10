@@ -16,6 +16,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jiggy.sample.framework.searchengine.DefaultSearchCriteria;
 import com.jiggy.sample.framework.searchengine.SearchCriteria;
@@ -31,6 +32,7 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
 public class UserRealm extends AuthorizingRealm {
   private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
   
+  @Autowired
   private UserCredentialsService userCredentialsService;
   
   /**
@@ -44,7 +46,7 @@ public class UserRealm extends AuthorizingRealm {
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-    // SessionProfile profile = SessionUtil.getProfile();
+    // UserProfile profile = SessionUtil.getProfile();
     // UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
     
     // if (profile == null) {
@@ -89,9 +91,7 @@ public class UserRealm extends AuthorizingRealm {
       Sha256Hash sha256Hash = new Sha256Hash(cred);
       logger.info("password={}", sha256Hash.toHex());
       
-      userCredentials = new UserCredentials();
-      userCredentials.setUsername(cred);
-      userCredentials.setPassword(sha256Hash.toHex());
+      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
     }
     
     if (userCredentials != null) {
