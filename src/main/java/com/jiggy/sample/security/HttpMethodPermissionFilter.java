@@ -48,7 +48,6 @@ public class HttpMethodPermissionFilter extends org.apache.shiro.web.filter.auth
   
   @Override
   public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-    
     String requestURI = ((HttpServletRequest) request).getRequestURI();
     String resourseName = this.getResourseName(requestURI);
     
@@ -78,7 +77,7 @@ public class HttpMethodPermissionFilter extends org.apache.shiro.web.filter.auth
     String restMethodAction = getHttpMethodAction(method);
     
     if (shouldRefresh(resourseName, restMethodAction)) {
-      SessionUtil.setPermissionRefreshNeeded();
+      SessionUtil.setRefreshPermission();
     }
   }
   

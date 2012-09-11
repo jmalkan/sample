@@ -1,5 +1,7 @@
 package com.jiggy.sample.security;
 
+import java.util.Set;
+
 import com.jiggy.sample.framework.entity.AbstractEntity;
 
 /**
@@ -17,7 +19,7 @@ public class User extends AbstractEntity {
   private String userName;
   private String email;
   
-  private Role role;
+  private Set<Role> roles;
   
   
   /**
@@ -29,14 +31,14 @@ public class User extends AbstractEntity {
    * @param email The Email address.
    * @param role The Users Role.
    */
-  public User(String firstName, String lastName, String userName, String email, Role role) {
+  public User(String firstName, String lastName, String userName, String email, Set<Role> roles) {
     super();
     
     this.firstName = firstName;
     this.lastName = lastName;
     this.userName = userName;
     this.email = email;
-    this.role = role;
+    this.roles = roles;
   }
   
   public String getFirstName() {
@@ -71,11 +73,11 @@ public class User extends AbstractEntity {
     this.email = email;
   }
 
-  public Role getRole() {
-    return role;
+  public Set<Role> getRoles() {
+    return roles;
   }
 
-  public void setRole(Role role) {
-    this.role = role;
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
   }
 }

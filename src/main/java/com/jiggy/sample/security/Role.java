@@ -15,6 +15,7 @@ import com.jiggy.sample.framework.entity.AbstractEntity;
 public class Role extends AbstractEntity {
   private static final long serialVersionUID = 1L;
   private String name;
+  private String description;
   
   private Set<Permission> permissions;
   
@@ -38,6 +39,14 @@ public class Role extends AbstractEntity {
   
   public void setName(String name) {
     this.name = name;
+  }
+  
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public Set<Permission> getPermissions() {

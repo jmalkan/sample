@@ -16,16 +16,24 @@ public class UserProfile implements Serializable {
   private static final long serialVersionUID = 1L;
   public User user;
   
-  
   /**
    * Creates a new instance of com.jiggy.sample.security.UserProfile.java and Performs Initialization
    * 
    * @param user The Users object containing Role/Permission.
    */
   public UserProfile(User user) {
-	super();
-	this.user = user;
+    super();
+    this.user = user;
   }
+  
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
 
   @Override
   public String toString() {

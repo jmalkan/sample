@@ -15,11 +15,11 @@ public abstract class AbstractEntity implements Entity {
   private static final long serialVersionUID = 1L;
   
   private Long id;
+  private Long version;
   private Long createdBy;
   private Long createDate;
   private Long lastModifiedBy;
   private Long lastModifiedDate;
-  private Long version;
   
   /**
    * Creates a new instance of com.jiggy.sample.framework.entity.AbstractEntity.java and Performs Initialization.
@@ -51,6 +51,16 @@ public abstract class AbstractEntity implements Entity {
    */
   public void setId(final Long id) {
     this.id = id;
+  }
+  
+  @Override
+  public void setVersion(Long version) {
+    this.version = version;
+  }
+
+  @Override
+  public int hashCode() {
+    return id != null ? id.hashCode() : 0;
   }
   
   @Override
@@ -96,16 +106,6 @@ public abstract class AbstractEntity implements Entity {
   @Override
   public Long getVersion() {
     return version;
-  }
-  
-  @Override
-  public void setVersion(Long version) {
-    this.version = version;
-  }
-
-  @Override
-  public int hashCode() {
-    return id != null ? id.hashCode() : 0;
   }
   
   @Override
