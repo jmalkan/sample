@@ -2,6 +2,7 @@ package com.jiggy.sample.todo;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jiggy.sample.framework.entity.Entity;
@@ -22,6 +23,7 @@ public class TodoServiceImpl extends AbstractDBService<Todo> implements TodoServ
    * 
    * @param todoDAO The Todo Data Access Object this service interacts with.
    */
+  @Autowired
   public TodoServiceImpl(TodoDAO todoDAO) {
     super(todoDAO);
   }

@@ -2,9 +2,9 @@ package com.jiggy.sample.security;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jiggy.sample.framework.dao.DBDAO;
 import com.jiggy.sample.framework.entity.Entity;
 import com.jiggy.sample.framework.service.AbstractDBService;
 
@@ -21,10 +21,11 @@ public class UserCredentialsServiceImpl extends AbstractDBService<UserCredential
   /**
    * Creates a new instance of com.jiggy.sample.todo.TodoServiceImpl.java and Performs Initialization
    *
-   * @param todoDAO The Todo Data Access Object this service interacts with.
+   * @param userCredentialsDAO The UserCredentialsDAO Data Access Object this service interacts with.
    */
-  public UserCredentialsServiceImpl(DBDAO<UserCredentials> dao) {
-    super(dao);
+  @Autowired
+  public UserCredentialsServiceImpl(UserCredentialsDAO userCredentialsDAO) {
+    super(userCredentialsDAO);
   }
 
   @Override

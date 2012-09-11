@@ -31,6 +31,9 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
  */
 public class UserRealm extends AuthorizingRealm {
   private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
+
+  @Autowired
+  private UserService userService;
   
   @Autowired
   private UserCredentialsService userCredentialsService;
@@ -49,22 +52,30 @@ public class UserRealm extends AuthorizingRealm {
     UserProfile userProfile = SessionUtil.getUserProfile();
     UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
     
-//    if (profile == null) {
-//      User user = this.userService.find();
-//      userProfile = new UserProfile(user);
-//    }
-    Set<String> roles = new HashSet<String>();
-    roles.add("ADMIN");
-    // Set<String> roles = roles.add(userProfile.getUser().getRole().getName());
-    // Set<Permission> permissions = userProfile.getUser().getRole().getPermissions();
+    if (userProfile == null) {
+      User user = this.userService.findById(userPrincipal.getId());
+      userProfile = new UserProfile(user);
+    }
     
+    Set<String> roles = new HashSet<String>();
     Set<Permission> permissions = new HashSet<Permission>();
-    permissions.add(new Permission("todos", "read"));
     Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
     
-    for (Permission permission : permissions)
+    for (Role role : userProfile.getUser().getRoles()) {
+      roles.add(role.getName());
+      
+      for (Permission permission : role.getPermissions()) {
+        permissions.add(permission);
+      }
+    }
+
+//    roles.add("ADMIN");
+//    permissions.add(new Permission("todos", "read"));
+    
+    for (Permission permission : permissions) {
       shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
-    //
+    }
+    
     SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo(roles);
     
     authInfo.setObjectPermissions(shiroPermissions);
@@ -79,27 +90,27 @@ public class UserRealm extends AuthorizingRealm {
     User user = null;
     UserPrincipal userPrincipal = null;
     SimpleAuthenticationInfo simpleAuthenticationInfo = null;
-    UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
+//    UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     
-    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
-    userCredSearchCriteria.addFilter("username", usernamePasswordToken.getUsername());
-    UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
+//    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
+//    userCredSearchCriteria.addFilter("userName", usernamePasswordToken.getUsername());
+    UserCredentials userCredentials = null; //userCredentialsService.findOne(userCredSearchCriteria);
     logger.warn("userCredentials=", userCredentials);
     
-//    if (userCredentials == null) {
-//      String cred = "admin";
-//      Sha256Hash sha256Hash = new Sha256Hash(cred);
-//      logger.info("password={}", sha256Hash.toHex());
-//      
-//      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
-//    }
+    if (userCredentials == null) {
+      String cred = "admin";
+      Sha256Hash sha256Hash = new Sha256Hash(cred);
+      logger.info("password={}", sha256Hash.toHex());
+      
+      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
+    }
     
     if (userCredentials != null) {
       logger.warn("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
-//      userPrincipal = new UserPrincipal(1l);
-      userPrincipal = new UserPrincipal(user.getId());
+      userPrincipal = new UserPrincipal(1l);
+//      userPrincipal = new UserPrincipal(user.getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }

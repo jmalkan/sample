@@ -24,8 +24,7 @@
   <!-- Enables the Spring MVC @Controller programming model -->
   <mvc:annotation-driven />
   
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-  <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+  <context:annotation-config />
   
   
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
