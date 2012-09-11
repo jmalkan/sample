@@ -9,7 +9,7 @@ import com.jiggy.sample.framework.entity.Entity;
 import com.jiggy.sample.framework.service.AbstractDBService;
 
 /**
- * A concrete implementation of the UserCredentialsService.
+ * A concrete implementation of the UserServiceImpl.
  * 
  * Created on Sept 1, 2012
  * 
@@ -17,29 +17,29 @@ import com.jiggy.sample.framework.service.AbstractDBService;
  * @version $Revision$
  */
 @Service
-public class UserCredentialsServiceImpl extends AbstractDBService<UserCredentials> implements UserCredentialsService {
+public class UserServiceImpl extends AbstractDBService<User> implements UserService {
   /**
-   * Creates a new instance of com.jiggy.sample.security.UserCredentialsServiceImpl.java and Performs Initialization
+   * Creates a new instance of com.jiggy.sample.security.UserServiceImpl.java and Performs Initialization
    *
-   * @param userCredentialsDAO The UserCredentialsDAO Data Access Object this service interacts with.
+   * @param userDAO The UserCredentialsDAO Data Access Object this service interacts with.
    */
   @Autowired
-  public UserCredentialsServiceImpl(UserCredentialsDAO userCredentialsDAO) {
-    super(userCredentialsDAO);
+  public UserServiceImpl(UserDAO userDAO) {
+    super(userDAO);
   }
 
   @Override
-  protected void validateBeforeInsert(UserCredentials entity) {
+  protected void validateBeforeInsert(User entity) {
     return;	
   }
 
   @Override
-  protected void validateBeforeUpdate(UserCredentials entity) {
+  protected void validateBeforeUpdate(User entity) {
     return;	
   }
 
   @Override
-  protected void validateBeforeDelete(UserCredentials entity) {
+  protected void validateBeforeDelete(User entity) {
     return;	
   }
 

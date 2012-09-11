@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Handles requests for the application todos request.
  */
 @Controller
-@RequestMapping(value = "/sample/service/todos")
+@RequestMapping(value = "/todos")
 public class TodosController {
   private static final Logger logger = LoggerFactory.getLogger(TodosController.class);
   

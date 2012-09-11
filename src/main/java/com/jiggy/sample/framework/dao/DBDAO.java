@@ -44,7 +44,6 @@ public interface DBDAO<T extends Entity> extends DAO {
   /**
    * Returns the count of such entities.
    * 
-   * @param entity
    * @return The row count
    */
   public abstract int count();
@@ -52,7 +51,7 @@ public interface DBDAO<T extends Entity> extends DAO {
   /**
    * Returns the count of such entities.
    * 
-   * @param entity
+   * @param searchCriteria
    * @return The row count
    */
   public abstract int count(SearchCriteria searchCriteria);
