@@ -62,15 +62,7 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
   
   @Override
   public final List<T> findAll() {
-    final List<T> entities = this.implementFindAll();
-    
-    if (entities != null) {
-      for (final T entity : entities) {
-        this.afterFind(entity);
-      }
-    }
-    
-    return entities;
+    return this.implementFindAll();
   }
   
   @Override
