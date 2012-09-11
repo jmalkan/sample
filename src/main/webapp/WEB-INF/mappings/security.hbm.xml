@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false" default-access="field">
+  <class name="com.jiggy.sample.security.Permission" table="PERMISSION" dynamic-update="true">
+    <id name="id" column="ID" type="java.lang.Long" />
+    
+    <property name="resource" column="RESOURCE" type="java.lang.String" not-null="true" />
+    <property name="operation" column="OPERATION" type="java.lang.String" not-null="true" />
+    
+    <property name="version" column="VERSION" type="java.lang.Long" not-null="true" />
+    <property name="createdBy" column="CREATED_BY" type="java.lang.Long" />
+    <property name="createDate" column="CREATED_DATE" type="java.lang.Long" />
+    <property name="lastModifiedBy" column="LAST_MODIFIED_BY" type="java.lang.Long" />
+    <property name="lastModifiedDate" column="LAST_MODIFIED_DATE" type="java.lang.Long" />
+  </class>
+  
+  <class name="com.jiggy.sample.security.Role" table="ROLE" dynamic-update="true">
+    <id name="id" column="ID" type="java.lang.Long" />
+    
+    <property name="name" column="NAME" type="java.lang.String" not-null="true" />
+    <property name="description" column="DESCRIPTION" type="java.lang.String" />
+    
+    <property name="version" column="VERSION" type="java.lang.Long" not-null="true" />
+    <property name="createdBy" column="CREATED_BY" type="java.lang.Long" />
+    <property name="createDate" column="CREATED_DATE" type="java.lang.Long" />
+    <property name="lastModifiedBy" column="LAST_MODIFIED_BY" type="java.lang.Long" />
+    <property name="lastModifiedDate" column="LAST_MODIFIED_DATE" type="java.lang.Long" />
+    
+    <set name="permissions" table="ROLE_PERMISSION">
+      <key column="ROLE_ID" not-null="true"/>
+      <many-to-many column="PERMISSION_ID" class="com.jiggy.sample.security.Permission"/>
+    </set>
+  </class>
+  
+  <class name="com.jiggy.sample.security.User" table="USER" dynamic-update="true">
+    <id name="id" column="ID" type="java.lang.Long" />
+    
+    <property name="firstName" column="FIRST_NAME" type="java.lang.String" not-null="true" />
+    <property name="lastName" column="LAST_NAME" type="java.lang.String" not-null="true" />
+    <property name="userName" column="USERNAME" type="java.lang.String" not-null="true" />
+    <property name="email" column="EMAIL" type="java.lang.String" not-null="true" />
+    
+    <property name="version" column="VERSION" type="java.lang.Long" not-null="true" />
+    <property name="createdBy" column="CREATED_BY" type="java.lang.Long" />
+    <property name="createDate" column="CREATED_DATE" type="java.lang.Long" />
+    <property name="lastModifiedBy" column="LAST_MODIFIED_BY" type="java.lang.Long" />
+    <property name="lastModifiedDate" column="LAST_MODIFIED_DATE" type="java.lang.Long" />
+    
+    <set name="roles" table="USER_ROLE">
+      <key column="USER_ID" not-null="true"/>
+      <many-to-many column="ROLE_ID" class="com.jiggy.sample.security.Role"/>
+    </set>
+  </class>
+  
+  <class name="com.jiggy.sample.security.UserCredentials" table="USER_CREDENTIALS" dynamic-update="true">
+    <id name="id" column="ID" type="java.lang.Long" />
+    
+    <property name="password" column="PASSWORD" type="java.lang.String" not-null="true" />
+    <property name="changePassword" column="CHANGE_PASSWORD" type="java.lang.Boolean" />
+    
+    <property name="version" column="VERSION" type="java.lang.Long" not-null="true" />
+    <property name="createdBy" column="CREATED_BY" type="java.lang.Long" />
+    <property name="createDate" column="CREATED_DATE" type="java.lang.Long" />
+    <property name="lastModifiedBy" column="LAST_MODIFIED_BY" type="java.lang.Long" />
+    <property name="lastModifiedDate" column="LAST_MODIFIED_DATE" type="java.lang.Long" />
+    
+    <many-to-one name="user" column="ID" unique="false"/>
+  </class>
+</hibernate-mapping>

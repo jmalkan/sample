@@ -41,9 +41,9 @@
     <property name="dataSource" ref="dataSource"/>
     <!-- property name="packagesToScan" value="com.jiggy.sample.*" />
     <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/ -->
-    <!-- property name="mappingLocations">
+    <property name="mappingLocations">
       <value>/WEB-INF/mappings/*.hbm.xml</value>
-    </property -->
+    </property>
 
     <!--<property name="entityInterceptor">-->
     <!--<ref local="auditInterceptor"/>-->
