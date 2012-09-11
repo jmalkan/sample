@@ -1,4 +1,4 @@
-package com.jiggy.sample;
+package com.jiggy.sample.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

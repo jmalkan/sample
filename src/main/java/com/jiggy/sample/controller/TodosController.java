@@ -1,4 +1,4 @@
-package com.jiggy.sample;
+package com.jiggy.sample.controller;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
