@@ -13,8 +13,8 @@ import org.apache.shiro.subject.Subject;
  * @version $Revision$
  */
 public class SessionUtil {
-  public static final String USER_PROFILE_ATTRIBUTE = User.class.getName();
-  public static final String PERMISSION_REFRESH_NEEDED = "permissionRefreshNeeded";
+  public static final String USER_PROFILE_ATTRIBUTE = UserProfile.class.getName();
+  public static final String REFRESH_PERMISSION = "refreshPermission";
   
   public static Subject getCurrentUser() {
       return SecurityUtils.getSubject();
@@ -32,23 +32,23 @@ public class SessionUtil {
       getSession().setAttribute(attribute, value);
   }
   
-  public static SessionProfile getProfile() {
-      return (SessionProfile) getAttribute(USER_PROFILE_ATTRIBUTE);
+  public static UserProfile getUserProfile() {
+      return (UserProfile) getAttribute(USER_PROFILE_ATTRIBUTE);
   }
   
-  public static void setProfile(SessionProfile profile) {
+  public static void setUserProfile(UserProfile profile) {
       setAttribute(USER_PROFILE_ATTRIBUTE, profile);
   }
   
-  public static void setPermissionRefreshNeeded() {
-    setAttribute(PERMISSION_REFRESH_NEEDED, Boolean.TRUE);
+  public static void setRefreshPermission() {
+    setAttribute(REFRESH_PERMISSION, Boolean.TRUE);
   }
 
   public static void clearPermissionRefreshNeeded() {
-    getSession().removeAttribute(PERMISSION_REFRESH_NEEDED);
+    getSession().removeAttribute(REFRESH_PERMISSION);
   }
 
   public static boolean isPermissionRefreshNeeded() {
-    return getSession().getAttribute(PERMISSION_REFRESH_NEEDED) == Boolean.TRUE;
+    return getSession().getAttribute(REFRESH_PERMISSION) == Boolean.TRUE;
   }
 }

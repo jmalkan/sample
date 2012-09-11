@@ -46,17 +46,17 @@ public class UserRealm extends AuthorizingRealm {
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-    // UserProfile profile = SessionUtil.getProfile();
-    // UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+    UserProfile userProfile = SessionUtil.getUserProfile();
+    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
     
-    // if (profile == null) {
-    // UserProfile userProfile = this.userProfileService.find();
-    // profile = userProfile.toSessionProfile();
-    // }
+//    if (profile == null) {
+//      User user = this.userService.find();
+//      userProfile = new UserProfile(user);
+//    }
     Set<String> roles = new HashSet<String>();
     roles.add("ADMIN");
-    // Set<String> roles = Sets.newHashSet(profile.getRole().getName());
-    // Set<Permission> permissions = profile.getRole().getPermissions();
+    // Set<String> roles = roles.add(userProfile.getUser().getRole().getName());
+    // Set<Permission> permissions = userProfile.getUser().getRole().getPermissions();
     
     Set<Permission> permissions = new HashSet<Permission>();
     permissions.add(new Permission("todos", "read"));
@@ -83,23 +83,23 @@ public class UserRealm extends AuthorizingRealm {
     
     SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
     userCredSearchCriteria.addFilter("username", usernamePasswordToken.getUsername());
-    UserCredentials userCredentials = null; // userCredentialsService.findOne(userCredSearchCriteria);
+    UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
     logger.warn("userCredentials=", userCredentials);
     
-    if (userCredentials == null) {
-      String cred = "admin";
-      Sha256Hash sha256Hash = new Sha256Hash(cred);
-      logger.info("password={}", sha256Hash.toHex());
-      
-      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
-    }
+//    if (userCredentials == null) {
+//      String cred = "admin";
+//      Sha256Hash sha256Hash = new Sha256Hash(cred);
+//      logger.info("password={}", sha256Hash.toHex());
+//      
+//      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
+//    }
     
     if (userCredentials != null) {
       logger.warn("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
-      userPrincipal = new UserPrincipal(1l);
-      // userPrincipal = new UserPrincipal(user.getId());
+//      userPrincipal = new UserPrincipal(1l);
+      userPrincipal = new UserPrincipal(user.getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }

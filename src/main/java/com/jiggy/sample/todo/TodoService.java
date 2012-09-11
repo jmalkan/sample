@@ -1,15 +1,15 @@
-package com.jiggy.sample.security;
+package com.jiggy.sample.todo;
 
 import com.jiggy.sample.framework.service.DBService;
 
 /**
- * Provides access to user credentials entity.
+ * The Business Logic Interface for accessing Todo.
  * 
  * Created on Sept 1, 2012
  * 
  * @author jmalkan
  * @version $Revision$
  */
-public interface UserCredentialsService extends DBService<UserCredentials> {
+public interface TodoService extends DBService<Todo> {
   //Define non-standard CRUD methods.
 }

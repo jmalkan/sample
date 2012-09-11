@@ -22,6 +22,20 @@ public interface Entity extends Serializable {
   public Long getId();
   
   /**
+   * Getter of the property <tt>createdBy</tt>
+   * 
+   * @return the createdBy
+   */
+  public Long getCreatedBy();
+  
+  /**
+   * Setter of the property <tt>createdBy</tt>
+   * 
+   * @param createdBy the createdBy to set
+   */
+  public void setCreatedBy(Long createdBy);
+  
+  /**
    * Getter of the property <tt>createDate</tt>
    * 
    * @return the createDate
@@ -34,6 +48,20 @@ public interface Entity extends Serializable {
    * @param createDate the createDate to set
    */
   public void setCreateDate(Long createDate);
+  
+  /**
+   * Getter of the property <tt>lastModifiedBy</tt>
+   * 
+   * @return the lastModifiedBy
+   */
+  public Long getLastModifiedBy();
+  
+  /**
+   * Setter of the property <tt>lastModifiedBy</tt>
+   * 
+   * @param lastModifiedBy the lastModifiedBy to set
+   */
+  public void setLastModifiedBy(Long lastModifiedBy);
   
   /**
    * Getter of the property <tt>lastModifiedDate</tt>
@@ -50,30 +78,16 @@ public interface Entity extends Serializable {
   public void setLastModifiedDate(Long lastModifiedDate);
   
   /**
-   * Getter of the property <tt>createdBy</tt>
+   * Getter of the property <tt>version</tt>
    * 
-   * @return
+   * @return the version
    */
-  public Long getCreatedBy();
+  public Long getVersion();
   
   /**
-   * Setter of the property <tt>createdBy</tt>
+   * Setter of the property <tt>version</tt>
    * 
-   * @param createdBy the createdBy to set
+   * @param version the version to set
    */
-  public void setCreatedBy(Long createdBy);
-  
-  /**
-   * Getter of the property <tt>lastModifiedBy</tt>
-   * 
-   * @return
-   */
-  public Long getLastModifiedBy();
-  
-  /**
-   * Setter of the property <tt>lastModifiedBy</tt>
-   * 
-   * @param lastModifiedBy the lastModifiedBy to set
-   */
-  public void setLastModifiedBy(Long lastModifiedBy);
+  public void setVersion(Long version);
 }

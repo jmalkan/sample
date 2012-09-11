@@ -61,5 +61,7 @@ incorporate ui libraries for security, timeouts, modal, analytics
 configure audit, error interceptors
 logout
 
+update document with MySQL/MongoDB setup,
+
 mvn clean install tomcat:redeploy
 mvn dbmaintain:clearDatabase dbmaintain:updateDatabase
