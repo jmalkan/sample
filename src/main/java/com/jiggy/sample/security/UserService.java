@@ -12,5 +12,5 @@ import com.jiggy.sample.framework.service.DBService;
  * 
  */
 public interface UserService extends DBService<User> {
-  // specfic methods
+  //Define non-standard Business methods.
 }

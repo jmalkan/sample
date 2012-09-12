@@ -17,9 +17,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jiggy.sample.framework.searchengine.DefaultSearchCriteria;
-import com.jiggy.sample.framework.searchengine.SearchCriteria;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Form based authentication realm.
@@ -31,12 +29,10 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
  */
 public class UserRealm extends AuthorizingRealm {
   private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
-
-  @Autowired
-  private UserService userService;
+  @Autowired private ApplicationContext context;
+  @Autowired private UserService userService;
+  @Autowired private UserCredentialsService userCredentialsService;
   
-  @Autowired
-  private UserCredentialsService userCredentialsService;
   
   /**
    * Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization
@@ -45,32 +41,33 @@ public class UserRealm extends AuthorizingRealm {
     logger.info("Creates a new instance of com.jiggy.sample.security.UserRealm.java and Performs Initialization");
     setAuthenticationTokenClass(UsernamePasswordToken.class);
   }
-  
+
+
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-    UserProfile userProfile = SessionUtil.getUserProfile();
-    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
-    
-    if (userProfile == null) {
-      User user = this.userService.findById(userPrincipal.getId());
-      userProfile = new UserProfile(user);
-    }
+//    UserProfile userProfile = SessionUtil.getUserProfile();
+//    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+//    
+//    if (userProfile == null) {
+//      User user = this.userService.findById(userPrincipal.getId());
+//      userProfile = new UserProfile(user);
+//    }
     
     Set<String> roles = new HashSet<String>();
     Set<Permission> permissions = new HashSet<Permission>();
     Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
     
-    for (Role role : userProfile.getUser().getRoles()) {
-      roles.add(role.getName());
-      
-      for (Permission permission : role.getPermissions()) {
-        permissions.add(permission);
-      }
-    }
+//    for (Role role : userProfile.getUser().getRoles()) {
+//      roles.add(role.getName());
+//      
+//      for (Permission permission : role.getPermissions()) {
+//        permissions.add(permission);
+//      }
+//    }
 
-//    roles.add("ADMIN");
-//    permissions.add(new Permission("todos", "read"));
+    roles.add("ADMIN");
+    permissions.add(new Permission("todos", "read"));
     
     for (Permission permission : permissions) {
       shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));

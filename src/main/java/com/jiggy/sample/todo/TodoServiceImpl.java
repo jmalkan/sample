@@ -16,7 +16,7 @@ import com.jiggy.sample.framework.service.AbstractDBService;
  * @author jmalkan
  * @version $Revision$
  */
-@Service
+@Service("todoService")
 public class TodoServiceImpl extends AbstractDBService<Todo> implements TodoService {
   /**
    * Creates a new instance of com.jiggy.sample.todo.TodoServiceImpl.java and Performs Initialization.

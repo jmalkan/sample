@@ -16,7 +16,7 @@ import com.jiggy.sample.framework.service.AbstractDBService;
  * @author jmalkan
  * @version $Revision$
  */
-@Service
+@Service(value = "userService")
 public class UserServiceImpl extends AbstractDBService<User> implements UserService {
   /**
    * Creates a new instance of com.jiggy.sample.security.UserServiceImpl.java and Performs Initialization

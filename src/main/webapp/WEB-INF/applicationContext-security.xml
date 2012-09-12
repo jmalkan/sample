@@ -5,9 +5,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+  <!-- Security:Shiro Filter: defines Authentication/Authorization infrastructure -->
+  
   <!-- Caching -->
   <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
 
@@ -15,10 +17,21 @@
 
   <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
     <property name="cacheManager" ref="ehCacheManager" />
+    <!-- property id="sessionIdCookie class="" -->
   </bean>
 
   <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
     <property name="sessionDAO" ref="sessionDAO" />
+  </bean>
+  
+  <bean id="authenticationListener" class="com.jiggy.sample.security.AuthenticationListener" />
+  
+  <bean id="modularRealmAuthenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+    <property name="authenticationListeners">
+      <list>
+        <ref bean="authenticationListener"/>
+      </list>
+    </property>
   </bean>
 
   <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -26,7 +39,8 @@
     <property name="realm" ref="userRealm" />
     <property name="cacheManager" ref="cacheManager" />
     <!-- By default the servlet container sessions will be used. Uncomment this line to use shiro's native sessions (see the JavaDoc for more): -->
-    <!-- <property name="sessionMode" value="native"/> -->
+    <!-- <property name="sessionMode" value="native"/>
+    <property name="authenticator" ref="modularRealmAuthenticator" /-->
   </bean>
 
   <!-- Define any javax.servlet.Filter beans you want anywhere in this application context. -->
@@ -69,7 +83,11 @@
     <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean -->
     <!-- defined will be automatically acquired and available via its beanName in chain -->
     <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
-    <!-- property name="filters"> <util:map> <entry key="authc" value-ref="authc_jm" /> </util:map> </property -->
+    <!-- property name="filters">
+      <util:map>
+        <entry key="authc" value-ref="authc_jm" />
+      </util:map>
+    </property -->
     <property name="filterChainDefinitions">
       <value>
         [urls]

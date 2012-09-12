@@ -44,9 +44,19 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
 public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<T>, FilterAdvice {
   private final static Long NULL_ID = -1l;
   
-  @Autowired
   private SessionFactory sessionFactory;
-
+  
+  /**
+   * Creates a new instance of com.jiggy.sample.framework.dao.AbstractHibernateDBDAO.java and Performs Initialization
+   * 
+   * @param sessionFactory The Hibernate's sessionFactory Object this dao interacts with.
+   */
+  public AbstractHibernateDBDAO(SessionFactory sessionFactory) {
+    super();
+    this.sessionFactory = sessionFactory;
+  }
+  
+  
   @Override
   public final T findById(final Long id) {
     if (id == null) {
