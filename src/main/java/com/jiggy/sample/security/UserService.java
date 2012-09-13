@@ -9,7 +9,6 @@ import com.jiggy.sample.framework.service.DBService;
  * 
  * @author jmalkan
  * @version $Revision$
- * 
  */
 public interface UserService extends DBService<User> {
   //Define non-standard Business methods.

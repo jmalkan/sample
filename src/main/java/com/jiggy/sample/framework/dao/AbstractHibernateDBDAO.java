@@ -480,7 +480,7 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
    * @param entity An instance of the entity object that needs to be deleted.
    */
   protected void implementDelete(final T entity) {
-	this.getCurrentSession().delete(entity);
+	  this.getCurrentSession().delete(entity);
   }
   
   /**
@@ -505,6 +505,6 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
    * @return The current session from Hibernate's SessionFactory
    */
   protected final Session getCurrentSession() {
-	return this.sessionFactory.getCurrentSession();
+	  return this.sessionFactory.getCurrentSession();
   }
 }

@@ -22,24 +22,33 @@ public class User extends AbstractEntity {
   private Set<Role> roles;
   
   
+
+
   /**
    * Creates a new instance of com.jiggy.sample.security.User.java and Performs Initialization
-   * 
-   * @param firstName The First Name.
-   * @param lastName The Last Name.
-   * @param userName The User Name.
-   * @param email The Email address.
-   * @param role The Users Role.
    */
-  public User(String firstName, String lastName, String userName, String email, Set<Role> roles) {
+  public User() {
     super();
-    
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.userName = userName;
-    this.email = email;
-    this.roles = roles;
   }
+
+//  /**
+//   * Creates a new instance of com.jiggy.sample.security.User.java and Performs Initialization
+//   * 
+//   * @param firstName The First Name.
+//   * @param lastName The Last Name.
+//   * @param userName The User Name.
+//   * @param email The Email address.
+//   * @param role The Users Role.
+//   */
+//  public User(String firstName, String lastName, String userName, String email, Set<Role> roles) {
+//    super();
+//    
+//    this.firstName = firstName;
+//    this.lastName = lastName;
+//    this.userName = userName;
+//    this.email = email;
+//    this.roles = roles;
+//  }
   
   public String getFirstName() {
     return firstName;
