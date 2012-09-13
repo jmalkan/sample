@@ -46,28 +46,28 @@ public class UserRealm extends AuthorizingRealm {
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
     logger.info("begin doGetAuthorizationInfo");
-//    UserProfile userProfile = SessionUtil.getUserProfile();
-//    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
-//    
-//    if (userProfile == null) {
-//      User user = this.userService.findById(userPrincipal.getId());
-//      userProfile = new UserProfile(user);
-//    }
+    UserProfile userProfile = SessionUtil.getUserProfile();
+    UserPrincipal userPrincipal = (UserPrincipal) getAvailablePrincipal(principals);
+    
+    if (userProfile == null) {
+      User user = this.userService.findById(userPrincipal.getId());
+      userProfile = new UserProfile(user);
+    }
     
     Set<String> roles = new HashSet<String>();
     Set<Permission> permissions = new HashSet<Permission>();
     Set<org.apache.shiro.authz.Permission> shiroPermissions = new HashSet<org.apache.shiro.authz.Permission>();
     
-//    for (Role role : userProfile.getUser().getRoles()) {
-//      roles.add(role.getName());
-//      
-//      for (Permission permission : role.getPermissions()) {
-//        permissions.add(permission);
-//      }
-//    }
+    for (Role role : userProfile.getUser().getRoles()) {
+      roles.add(role.getName());
+      
+      for (Permission permission : role.getPermissions()) {
+        permissions.add(permission);
+      }
+    }
 
-    roles.add("ADMIN");
-    permissions.add(new Permission("todos", "read"));
+//    roles.add("ADMIN");
+//    permissions.add(new Permission("todos", "read"));
     
     for (Permission permission : permissions) {
       shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
@@ -92,7 +92,7 @@ public class UserRealm extends AuthorizingRealm {
 //    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
 //    userCredSearchCriteria.addFilter("userName", usernamePasswordToken.getUsername());
     UserCredentials userCredentials = null; //userCredentialsService.findOne(userCredSearchCriteria);
-    logger.warn("userCredentials=", userCredentials);
+    logger.info("userCredentials=", userCredentials);
     
     if (userCredentials == null) {
       String cred = "admin";
@@ -103,7 +103,7 @@ public class UserRealm extends AuthorizingRealm {
     }
     
     if (userCredentials != null) {
-      logger.warn("Validating user credential against Credentials.");
+      logger.info("Validating user credential against Credentials.");
       user = userCredentials.getUser();
       
       userPrincipal = new UserPrincipal(1l);

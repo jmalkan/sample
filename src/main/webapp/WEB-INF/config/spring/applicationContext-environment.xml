@@ -14,11 +14,8 @@
                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
                            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-  <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-  
   <!-- Scans within the base package of the application for @Components to configure as beans -->
   <!-- @Controller, @Service, @Configuration, etc. -->
-  <!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
   <context:component-scan base-package="com.jiggy.sample" />
 
   <!-- Enables the Spring MVC @Controller programming model -->
@@ -27,6 +24,8 @@
   <!-- Enabling annotation and post processors -->
   <context:annotation-config />
   <!-- context:load-time-weaver/-->
+  <!-- enable this to auto generate proxies for beans without interface -->
+  <!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
   
   <!-- Data Source -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -42,7 +41,7 @@
     <!-- property name="packagesToScan" value="com.jiggy.sample.*" />
     <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/ -->
     <property name="mappingLocations">
-      <value>/WEB-INF/mappings/*.hbm.xml</value>
+      <value>/WEB-INF/config/hibernate/*.hbm.xml</value>
     </property>
 
     <!--<property name="entityInterceptor">-->
@@ -57,10 +56,11 @@
         <prop key="hibernate.jdbc.fetch_size">10</prop>
         <prop key="hibernate.jdbc.batch_size">10</prop>
         <prop key="hibernate.generate_statistics">true</prop>
-        <prop key="current_session_context_class">thread</prop>
         <prop key="hibernate.use_identifer_rollback">true</prop>
         <prop key="hibernate.default_batch_fetch_size">16</prop>
         <prop key="hibernate.transaction.auto_close_session">true</prop>
+        <!--prop key="hibernate.current_session_context_class">thread</prop-->
+        <!-- prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop-->
         <!-- this just extends the org.hibernate provided dialect and adds spatial support; works with 9i -->
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
         <prop key="hibernate.query.substitutions">true 1, false 0, Y 'y', N 'n'</prop>
@@ -101,7 +101,7 @@
 
   <!-- ensure that the transactional and security advice runs for any execution of an operation defined by the Manager interface -->
   <aop:config>
-    <aop:pointcut id="serviceOperation" expression="execution(* com.jiggy.sample.framework.service.Service.*(..))"/>
+    <aop:pointcut id="serviceOperation" expression="execution(* com.jiggy.sample.framework.service.Service+.*(..))"/>
     <!-- aop:advisor advice-ref="securityAdvice" pointcut-ref="managerOperation"/-->
     <aop:advisor advice-ref="transactionAdvice" pointcut-ref="serviceOperation"/>
   </aop:config>
