@@ -37,51 +37,64 @@
 
   <!-- Hibernate SessionFactory -->
   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-    <property name="dataSource" ref="dataSource"/>
+    <property name="dataSource" ref="dataSource" />
     <!-- property name="packagesToScan" value="com.jiggy.sample.*" />
-    <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/ -->
+    <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" / -->
     <property name="mappingLocations">
       <value>/WEB-INF/config/hibernate/*.hbm.xml</value>
     </property>
 
-    <!--<property name="entityInterceptor">-->
-    <!--<ref local="auditInterceptor"/>-->
-    <!--</property>-->
+    <!--<property name="entityInterceptor"> -->
+    <!--<ref local="auditInterceptor"/> -->
+    <!--</property> -->
 
     <property name="hibernateProperties">
       <props>
-        <!-- prop key="hibernate.show_sql">true</prop-->
-        <!-- prop key="hibernate.hbm2ddl.auto">update</prop--> <!-- validate | update | create | create-drop -->
-        <prop key="hibernate.order_updates">true</prop>
+        <!-- JDBC -->
         <prop key="hibernate.jdbc.fetch_size">10</prop>
         <prop key="hibernate.jdbc.batch_size">10</prop>
-        <prop key="hibernate.generate_statistics">true</prop>
-        <prop key="hibernate.use_identifer_rollback">true</prop>
         <prop key="hibernate.default_batch_fetch_size">16</prop>
+
+        <!-- TRANSACTION -->
         <prop key="hibernate.transaction.auto_close_session">true</prop>
-        <!--prop key="hibernate.current_session_context_class">thread</prop-->
-        <!-- prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop-->
-        <!-- this just extends the org.hibernate provided dialect and adds spatial support; works with 9i -->
+
+        <!-- SQL DIALECTS -->
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-        <prop key="hibernate.query.substitutions">true 1, false 0, Y 'y', N 'n'</prop>
-        <!-- prop key="hibernate.cache.use_query_cache">true</prop>
-        <prop key="hibernate.cache.region_prefix">sample</prop>
+
+        <!-- CACHE -->
+        <!-- prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+        <prop key="net.sf.ehcache.configurationResourceName">ehcache.xml</prop>
+        <prop key="hibernate.cache.region.jbc2.query.localonly">true</prop>
         <prop key="hibernate.cache.use_second_level_cache">true</prop>
-        <prop key="hibernate.cache.provider_class">org.hibernate.cache.ehcache.EhCacheRegionFactoryr</prop-->
-        <!-- prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
-        <prop key="hibernate.cache.provider_class">com.opensymphony.oscache.hibernate.OSCacheProvider</prop>
-        <prop key="hibernate.cache.provider_class">org.hibernate.cache.OSCacheProvider</prop-->
-        <!-- prop key="hibernate.cache.region.factory_class">org.hibernate.cache.internal.RegionFactoryInitiator</prop-->
-        <!-- prop key="configurationClass">org.hibernate.cfg.AnnotationConfiguration</prop-->
+        <prop key="hibernate.cache.use_structured_entries">true</prop>
+        <prop key="hibernate.cache.use_query_cache">true</prop>
+        <prop key="hibernate.cache.region_prefix">sample</prop-->
+
+        <!-- STATISTICS - this should not be enabled for production -->
+        <prop key="hibernate.generate_statistics">true</prop>
+
+        <!-- SQL DEBUGGING - this should not be enabled for production -->
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.use_sql_comments">true</prop>
+        <!-- prop key="hibernate.hbm2ddl.auto">update</prop --> <!-- validate | update | create | create-drop -->
+
+        <!-- MISCELLANEOUS -->
+        <prop key="hibernate.query.substitutions">true 1, false 0, Y 'y', N 'n'</prop>
+        <!--prop key="hibernate.current_session_context_class">thread</prop -->
+        <!-- prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop -->
+        <prop key="hibernate.use_identifer_rollback">true</prop>
+        <prop key="hibernate.order_updates">true</prop>
+        <!-- prop key="configurationClass">org.hibernate.cfg.AnnotationConfiguration</prop -->
       </props>
     </property>
     <!-- property name="eventListeners">
       <map>
         <entry key="merge">
-          <bean class="org.springframework.orm.hibernate4.support.IdTransferringMergeEventListener"/>
+          <bean class="org.springframework.orm.hibernate4.support.IdTransferringMergeEventListener" />
         </entry>
       </map>
-    </property -->
+    </property-->
   </bean>
 
   <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
@@ -94,8 +107,9 @@
   <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
     <!-- the transactional semantics... -->
     <tx:attributes>
-      <tx:method name="find*" read-only="true" timeout="30" propagation="SUPPORTS"/>
-      <tx:method name="create*, update*, delete*" timeout="30" propagation="REQUIRED" rollback-for="DataValidationException"/>
+      <tx:method name="*" timeout="30" propagation="REQUIRED"/>
+      <!-- tx:method name="find*" read-only="true" timeout="30" propagation="SUPPORTS"/>
+      <tx:method name="create*, update*, delete*" timeout="30" propagation="REQUIRED" rollback-for="DataValidationException"/ -->
     </tx:attributes>
   </tx:advice>
 
