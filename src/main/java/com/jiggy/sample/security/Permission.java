@@ -14,20 +14,27 @@ public class Permission extends AbstractEntity {
   private static final long serialVersionUID = 1L;
   private String resource;
   private String operation;
-
+  
   
   /**
-   * Creates a new instance of com.jiggy.sample.securit.Permission.java and Performs Initialization
-   * 
-   * @param resource The Resource Name.
-   * @param operation The Operation Name.
+   * Creates a new instance of com.jiggy.sample.security.Permission.java and Performs Initialization
    */
-  public Permission(String resource, String operation) {
+  public Permission() {
     super();
-    
-    this.resource = resource;
-    this.operation = operation;
   }
+  
+//  /**
+//   * Creates a new instance of com.jiggy.sample.securit.Permission.java and Performs Initialization
+//   * 
+//   * @param resource The Resource Name.
+//   * @param operation The Operation Name.
+//   */
+//  public Permission(String resource, String operation) {
+//    super();
+//    
+//    this.resource = resource;
+//    this.operation = operation;
+//  }
   
   /**
    * Getter of the property <tt>resource</tt>

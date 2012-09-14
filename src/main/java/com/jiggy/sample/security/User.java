@@ -22,8 +22,6 @@ public class User extends AbstractEntity {
   private Set<Role> roles;
   
   
-
-
   /**
    * Creates a new instance of com.jiggy.sample.security.User.java and Performs Initialization
    */

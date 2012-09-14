@@ -22,16 +22,23 @@ public class Role extends AbstractEntity {
   
   /**
    * Creates a new instance of com.jiggy.sample.security.Role.java and Performs Initialization
-   * 
-   * @param name The Role Name
-   * @param permissions The permissions assigned to the role
    */
-  public Role(String name, Set<Permission> permissions) {
+  public Role() {
     super();
-    
-    this.name = name;
-    this.permissions = permissions;
   }
+  
+//  /**
+//   * Creates a new instance of com.jiggy.sample.security.Role.java and Performs Initialization
+//   * 
+//   * @param name The Role Name
+//   * @param permissions The permissions assigned to the role
+//   */
+//  public Role(String name, Set<Permission> permissions) {
+//    super();
+//    
+//    this.name = name;
+//    this.permissions = permissions;
+//  }
   
   public String getName() {
     return name;
