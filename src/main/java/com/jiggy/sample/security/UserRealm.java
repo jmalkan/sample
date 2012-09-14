@@ -65,9 +65,6 @@ public class UserRealm extends AuthorizingRealm {
         permissions.add(permission);
       }
     }
-
-//    roles.add("ADMIN");
-//    permissions.add(new Permission("todos", "read"));
     
     for (Permission permission : permissions) {
       shiroPermissions.add(new WildcardPermission(permission.getPermissionValue()));
@@ -84,10 +81,9 @@ public class UserRealm extends AuthorizingRealm {
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
     logger.info("begin doGetAuthenticationInfo getCredentialsMatcher {}", getCredentialsMatcher());
     
-    User user = null;
     UserPrincipal userPrincipal = null;
     SimpleAuthenticationInfo simpleAuthenticationInfo = null;
-//    UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
+    UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     
 //    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
 //    userCredSearchCriteria.addFilter("userName", usernamePasswordToken.getUsername());
@@ -99,15 +95,14 @@ public class UserRealm extends AuthorizingRealm {
       Sha256Hash sha256Hash = new Sha256Hash(cred);
       logger.info("password={}", sha256Hash.toHex());
       
-      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, user);
+      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, null);
     }
     
     if (userCredentials != null) {
       logger.info("Validating user credential against Credentials.");
-      user = userCredentials.getUser();
       
-      userPrincipal = new UserPrincipal(1l);
-//      userPrincipal = new UserPrincipal(user.getId());
+      userPrincipal = new UserPrincipal( usernamePasswordToken.getUsername().equals("admin") ? 1l : 2l);
+//      userPrincipal = new UserPrincipal(userCredentials.getUser().getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }
