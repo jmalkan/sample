@@ -121,7 +121,7 @@
     <org.dbmaintain.maven.plugins-version>2.4</org.dbmaintain.maven.plugins-version>
 
     <org.mongodb-version>2.8.0</org.mongodb-version>
-    <org.aspectj-version>1.6.9</org.aspectj-version>
+    <org.aspectj-version>1.7.0</org.aspectj-version>
     <com.sun.jersey-version>1.13</com.sun.jersey-version>
     <org.hibernate-version>4.1.6.Final</org.hibernate-version>
     <org.springframework-version>3.1.2.RELEASE</org.springframework-version>
@@ -194,6 +194,22 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${org.springframework-version}</version>
+    </dependency>
+    <!-- Spring AOP + AspectJ -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${org.springframework-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>${org.aspectj-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${org.aspectj-version}</version>
     </dependency>
     <!-- Spring Web MVC Features -->
     <dependency>
@@ -322,25 +338,21 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${org.slf4j-version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${org.slf4j-version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <version>${org.slf4j-version}</version>
-      <scope>provided</scope>
     </dependency> 
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>apache-log4j-extras</artifactId>
       <version>${apache.log4j.extras-version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
