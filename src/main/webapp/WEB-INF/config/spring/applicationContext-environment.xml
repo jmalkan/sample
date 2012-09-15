@@ -74,9 +74,9 @@
         <prop key="hibernate.generate_statistics">true</prop>
 
         <!-- SQL DEBUGGING - this should not be enabled for production -->
-        <prop key="hibernate.show_sql">true</prop>
+        <!-- prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.format_sql">true</prop>
-        <prop key="hibernate.use_sql_comments">true</prop>
+        <prop key="hibernate.use_sql_comments">true</prop -->
         <!-- prop key="hibernate.hbm2ddl.auto">update</prop --> <!-- validate | update | create | create-drop -->
 
         <!-- MISCELLANEOUS -->
@@ -112,8 +112,23 @@
       <tx:method name="create*, update*, delete*" timeout="30" propagation="REQUIRED" rollback-for="DataValidationException"/ -->
     </tx:attributes>
   </tx:advice>
+  
+  <!-- Define Interceptors -->
+  <bean id="auditAdvice" class="com.jiggy.sample.framework.interceptor.AuditInterceptor" />
+  <bean id="exceptionAdvice" class="com.jiggy.sample.framework.interceptor.ExceptionInterceptor" />
+  
+  <!-- support classes without interface -->
+  <!-- aop:aspectj-autoproxy proxy-target-class="true"/-->
+  
+  <!-- ensure that the audit and exception advice runs for any execution of an operation defined by the Controller annotation -->
+  <aop:config>
+    <!-- aop:pointcut id="controllerOperation" expression="execution(public String com..*.controller.*(..))"/-->
+    <aop:pointcut id="controllerOperation" expression="within(@org.springframework.stereotype.Controller *)"/>
+    <aop:advisor advice-ref="auditAdvice" pointcut-ref="controllerOperation" order="1"/>
+    <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="controllerOperation" order="2"/>
+  </aop:config>
 
-  <!-- ensure that the transactional and security advice runs for any execution of an operation defined by the Manager interface -->
+  <!-- ensure that the transactional and security advice runs for any execution of an operation defined by the Service interface -->
   <aop:config>
     <aop:pointcut id="serviceOperation" expression="execution(* com.jiggy.sample.framework.service.Service+.*(..))"/>
     <!-- aop:advisor advice-ref="securityAdvice" pointcut-ref="managerOperation"/-->
