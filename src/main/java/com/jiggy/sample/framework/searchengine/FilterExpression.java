@@ -26,7 +26,7 @@ public class FilterExpression {
   private Pattern QUERY_PARSER = Pattern.compile("([^!]*)(!?+=)(.*)");
   
   public enum QueryMode {
-    JPA("AND", "="), JDO("&&", "==");
+    JPA("AND", "="), JDO("&&", "=="), HQL("AND", "=");
     
     private final String andToken;
     private final String equalsToken;

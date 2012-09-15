@@ -5,8 +5,8 @@ import com.jiggy.sample.framework.searchengine.FilterExpression.FilterTerm;
 import java.util.Map;
 
 /**
- * SearchCriteria.java This is an abstract base class for the search criteria class to extend from. Common functionality used by descendants is
- * implemented here.
+ * SearchCriteria.java This is an abstract base class for the search criteria class to extend from.
+ * Common functionality used by descendants is implemented here.
  * 
  * Created on Sept 1, 2012
  * 

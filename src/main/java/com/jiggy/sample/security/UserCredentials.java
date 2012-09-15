@@ -21,6 +21,14 @@ public class UserCredentials extends AbstractEntity {
   
   /**
    * Creates a new instance of com.jiggy.sample.securit.UserCredentials.java and Performs Initialization
+   */
+  public UserCredentials() {
+    super();
+  }
+
+  
+  /**
+   * Creates a new instance of com.jiggy.sample.securit.UserCredentials.java and Performs Initialization
    * 
    * @param password The password.
    * @param changePassword The changePassword indicator.

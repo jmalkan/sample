@@ -1,10 +1,16 @@
 package com.jiggy.sample.security;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jiggy.sample.framework.dao.AbstractHibernateDBDAO;
+import com.jiggy.sample.framework.searchengine.FilterExpression.FilterTerm;
+import com.jiggy.sample.framework.searchengine.SearchCriteria;
 
 /**
  * Data access implementation for UserCredentials.
@@ -29,5 +35,22 @@ public class UserCredentialsDAOImpl extends AbstractHibernateDBDAO<UserCredentia
   @Override
   protected Class<UserCredentials> getEntity() {
     return UserCredentials.class;
+  }
+
+  @Override
+  protected List<UserCredentials> implementFind(SearchCriteria searchCriteria) {
+    String queryString = "from " + this.getEntity().getSimpleName() + " where user.userName = :userName";
+    
+    Query query = this.getCurrentSession().createQuery(queryString);
+    
+    Collection<FilterTerm> filterTerms = searchCriteria.getFilter().terms();
+    
+    for (FilterTerm filterTerm : filterTerms) {
+      query.setString(filterTerm.getKey(), filterTerm.getValue());
+    }
+    
+    List<UserCredentials> result = query.list();
+    
+    return result;
   }
 }

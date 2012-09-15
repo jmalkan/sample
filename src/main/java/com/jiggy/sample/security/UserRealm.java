@@ -19,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import com.jiggy.sample.framework.searchengine.DefaultSearchCriteria;
+import com.jiggy.sample.framework.searchengine.SearchCriteria;
+
 /**
  * Form based authentication realm.
  * 
@@ -85,24 +88,15 @@ public class UserRealm extends AuthorizingRealm {
     SimpleAuthenticationInfo simpleAuthenticationInfo = null;
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     
-//    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
-//    userCredSearchCriteria.addFilter("userName", usernamePasswordToken.getUsername());
-    UserCredentials userCredentials = null; //userCredentialsService.findOne(userCredSearchCriteria);
+    SearchCriteria userCredSearchCriteria = new DefaultSearchCriteria();
+    userCredSearchCriteria.addFilter("userName", usernamePasswordToken.getUsername());
+    UserCredentials userCredentials = userCredentialsService.findOne(userCredSearchCriteria);
     logger.info("userCredentials=", userCredentials);
-    
-    if (userCredentials == null) {
-      String cred = "admin";
-      Sha256Hash sha256Hash = new Sha256Hash(cred);
-      logger.info("password={}", sha256Hash.toHex());
-      
-      userCredentials = new UserCredentials(sha256Hash.toHex(), Boolean.FALSE, null);
-    }
     
     if (userCredentials != null) {
       logger.info("Validating user credential against Credentials.");
       
-      userPrincipal = new UserPrincipal( usernamePasswordToken.getUsername().equals("admin") ? 1l : 2l);
-//      userPrincipal = new UserPrincipal(userCredentials.getUser().getId());
+      userPrincipal = new UserPrincipal(userCredentials.getUser().getId());
       
       simpleAuthenticationInfo = new SimpleAuthenticationInfo(userPrincipal, userCredentials.getPassword(), UserRealm.class.getSimpleName());
     }
