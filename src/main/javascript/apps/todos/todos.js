@@ -4,6 +4,48 @@ steal('jquery/class',
       './todos.css',             // application CSS file
       './models/models.js',      // steals all your models
   function($) {
+    $(document).ready(function() {
+//      $.ajax({
+//        url : '/sample/service/system/current',
+//        cache : false,
+//        success : applyUserTemplate,
+//        dataType : 'json'
+//      });
+      applyUserTemplate(null);
+    });
+    
+    function applyUserTemplate(user) {
+        $("#header").html('//apps/plugins/header/views/template.ejs',{});
+        //$('#_username').html('admin admin');
+        $('.userinfo').show();
+
+//        secureByPermission(['todo:read'],
+//            function(){
+//                $('#todo').list({
+//                    model: Apps.Models.Todo,
+//                    showView : "//apps/todos/views/show.ejs",
+//                    controlView : "//apps/todos/views/control.ejs",
+//                    edit : {title:"Edit Todos", display:"//apps/todos/views/edit"},
+//                    destroy : {text:"Todo"},
+//                    params : {todo : "true", parent : "null", sort : "lastModifiedDate desc"}
+//                });
+//
+//                $(".createButton").click(function(){
+//                    $("#editModal").todos({
+//                      model: Apps.Models.Todo,
+//                        view : '//apps/todos/views/form',
+//                        title : "Create Todo",
+//                        closeImmediately: function(){
+//                           return true;
+//                        }
+//                    })
+//                });
+//            },
+//            function(){
+//                $('#masters').html('//apps/views/unauthorized.ejs', {});
+//            });
+    }
+    
     $.Controller("Todos", {
       defaults : {template: 'todos.ejs'}
       }, {
