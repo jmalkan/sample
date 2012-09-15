@@ -21,7 +21,7 @@ public class HomeController {
   @Autowired
   Comparator<String> comparator;
   
-  @RequestMapping(value = "/home")
+  @RequestMapping(method = RequestMethod.GET)
   public String home() {
     logger.info("HomeController: Passing through...");
     return "WEB-INF/views/home.jsp";

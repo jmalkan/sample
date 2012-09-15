@@ -1,8 +1,8 @@
 package com.jiggy.sample.controller;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,58 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jiggy.sample.todo.Todo;
+
 /**
  * Handles requests for the application todos request.
  */
 @Controller
-@RequestMapping(value = "/todos")
 public class TodosController {
   private static final Logger logger = LoggerFactory.getLogger(TodosController.class);
-  
+
   @ResponseBody
   @RequestMapping(method = RequestMethod.GET)
-  public JSONArray findAll() {
+  public Todo findAll() {
     logger.info("findAll");
-    JSONObject todo = null;
-    JSONArray todos = new JSONArray();
-    try {
-      todo = new JSONObject("{id: 1, name: wake up}");
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
     
-    todos.put(todo);
-    
-    return todos;
+    return new Todo(new Long(1), "wake up");
   }
   
   @ResponseBody
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-  public JSONObject findById(@PathVariable String id) {
-    logger.info("id = {}", id);
-    JSONObject todo = null;
-    try {
-      todo = new JSONObject("{id: 1, name: wake up}");
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public Todo findById(@PathVariable String id) {
+    logger.info("findById");
     
-    return todo;
+    return new Todo(new Long(1), "wake up");
   }
   
   @ResponseBody
-  @RequestMapping(value = "/find", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-  public JSONArray find(@RequestBody String body) {
+  @RequestMapping(value = "/find", method = RequestMethod.GET)
+  public List<Todo> find(@RequestBody String body) {
     logger.info("find body: {}", body);
-    JSONObject todo = null;
-    JSONArray todos = new JSONArray();
-    try {
-      todo = new JSONObject("{id: 1, name: wake up}");
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
+    List<Todo> todos = new ArrayList<Todo>();
     
-    todos.put(todo);
+    todos.add(new Todo(new Long(1), "wake up"));
+    todos.add(new Todo(new Long(2), "do dishes"));
+    todos.add(new Todo(new Long(3), "take out trash"));
     
     return todos;
   }
