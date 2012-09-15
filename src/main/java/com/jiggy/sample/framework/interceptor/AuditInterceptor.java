@@ -1,4 +1,4 @@
-package com.jiggy.sample.framework.interceptors.audit;
+package com.jiggy.sample.framework.interceptor;
 
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Intercepts any method that extends AbstractResource and logs audit entry. This class does NOT handle exceptions thrown by Resource methods. The
- * ResourceExceptionInterceptor is meant for that purpose.
+ * ExceptionInterceptor is meant for that purpose.
  * 
  * Created on Sept 1, 2012
  * 

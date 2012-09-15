@@ -1,4 +1,4 @@
-package com.jiggy.sample.framework.interceptors.exception;
+package com.jiggy.sample.framework.interceptor;
 
 import com.jiggy.sample.framework.exception.ValidationException;
 
@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
  * @version $Revision$
  * @author jmalkan
  */
-public final class ResourceExceptionInterceptor implements MethodInterceptor {
-  private static final Logger logger = LoggerFactory.getLogger(ResourceExceptionInterceptor.class);
+public final class ExceptionInterceptor implements MethodInterceptor {
+  private static final Logger logger = LoggerFactory.getLogger(ExceptionInterceptor.class);
   
   @Override
   public Object invoke(final MethodInvocation mthodInvocation) throws Throwable {
