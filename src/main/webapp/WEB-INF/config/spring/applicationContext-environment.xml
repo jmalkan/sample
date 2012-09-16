@@ -24,8 +24,6 @@
   <!-- Enabling annotation and post processors -->
   <context:annotation-config />
   <!-- context:load-time-weaver/-->
-  <!-- enable this to auto generate proxies for beans without interface -->
-  <!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
   
   <!-- Data Source -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -134,13 +132,6 @@
     <!-- aop:advisor advice-ref="securityAdvice" pointcut-ref="managerOperation"/-->
     <aop:advisor advice-ref="transactionAdvice" pointcut-ref="serviceOperation"/>
   </aop:config>
-  
-  
-  <!-- bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-    <property name="interceptors">
-      <bean class="example.MyInterceptor"/>
-    </property>
-  </bean-->
   
   <!-- jdbc:embedded-database id="dataSource">
     <jdbc:script location="classpath:schema.sql"/>
