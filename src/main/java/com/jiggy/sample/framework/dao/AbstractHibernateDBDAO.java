@@ -1,5 +1,6 @@
 package com.jiggy.sample.framework.dao;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,16 +43,26 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
   private final static Long NULL_ID = -1l;
   
   private SessionFactory sessionFactory;
+  private Class<T> persistentClass;
+  
   
   /**
    * Creates a new instance of com.jiggy.sample.framework.dao.AbstractHibernateDBDAO.java and Performs Initialization
    * 
    * @param sessionFactory The Hibernate's sessionFactory Object this dao interacts with.
    */
+  @SuppressWarnings("unchecked")
   public AbstractHibernateDBDAO(SessionFactory sessionFactory) {
     super();
     this.sessionFactory = sessionFactory;
+    this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
   }
+  
+  
+  public Class<T> getPersistentClass() {
+    return persistentClass;
+  }
+  
   
   
   @Override
@@ -148,13 +159,6 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
   }
   
   /**
-   * Returns the Entity objects class that this dao is working with used by finder methods.
-   * 
-   * @return The Entity Class.
-   */
-  protected abstract Class<T> getEntity();
-  
-  /**
    * Implements non-data/non-business validation logic after entity is retrieved from the data store.
    * 
    * @param entity An instance of the Entity that is retrieved from the data store.
@@ -169,8 +173,9 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
    * @param id The id of the entity being searched.
    * @return entity An instance of the Entity that is retrieved from the data store.
    */
+  @SuppressWarnings("unchecked")
   protected T implementFindById(final Long id) {
-    return (T) this.getCurrentSession().get(this.getEntity(), id);
+    return (T) this.getCurrentSession().get(this.getPersistentClass(), id);
   }
   
   /**
@@ -384,6 +389,7 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
    * 
    * @return The Id of the newly created entity.
    */
+  @SuppressWarnings("unchecked")
   protected T implementInsert(final T entity) {
     return (T) this.getCurrentSession().save(entity);
   }

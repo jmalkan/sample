@@ -25,9 +25,4 @@ public class TodoDAOImpl extends AbstractHibernateDBDAO<Todo> implements TodoDAO
   public TodoDAOImpl(SessionFactory sessionFactory) {
     super(sessionFactory);
   }
-  
-  @Override
-  protected Class<Todo> getEntity() {
-    return Todo.class;
-  }
 }

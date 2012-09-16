@@ -25,9 +25,4 @@ public class UserDAOImpl extends AbstractHibernateDBDAO<User> implements UserDAO
   public UserDAOImpl(SessionFactory sessionFactory) {
     super(sessionFactory);
   }
-  
-  @Override
-  protected Class<User> getEntity() {
-    return User.class;
-  }
 }

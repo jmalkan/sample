@@ -1,5 +1,6 @@
 package com.jiggy.sample.framework.dao;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +39,18 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
  */
 public abstract class AbstractDBDAO<T extends Entity> implements DBDAO<T>, FilterAdvice {
   private final static Long NULL_ID = -1l;
+  private Class<T> persistentClass;
+  
+  @SuppressWarnings("unchecked")
+  public AbstractDBDAO() {
+  this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+  }
+  
+    
+  public Class<T> getPersistentClass() {
+    return persistentClass;
+  }
+  
   
   @Override
   public final T findById(final Long id) {
