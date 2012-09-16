@@ -31,15 +31,10 @@ public class UserCredentialsDAOImpl extends AbstractHibernateDBDAO<UserCredentia
   public UserCredentialsDAOImpl(SessionFactory sessionFactory) {
     super(sessionFactory);
   }
-  
-  @Override
-  protected Class<UserCredentials> getEntity() {
-    return UserCredentials.class;
-  }
 
   @Override
   protected List<UserCredentials> implementFind(SearchCriteria searchCriteria) {
-    String queryString = "from " + this.getEntity().getSimpleName() + " where user.userName = :userName";
+    String queryString = "from " + this.getPersistentClass().getSimpleName() + " where user.userName = :userName";
     
     Query query = this.getCurrentSession().createQuery(queryString);
     
