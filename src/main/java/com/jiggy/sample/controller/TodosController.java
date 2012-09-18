@@ -20,6 +20,7 @@ import com.jiggy.sample.todo.TodoService;
  * Handles requests for the application todos request.
  */
 @Controller
+@RequestMapping("todos")
 public class TodosController {
   private static final Logger logger = LoggerFactory.getLogger(TodosController.class);
   
