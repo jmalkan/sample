@@ -42,7 +42,7 @@ public class TodosController {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/", method = RequestMethod.GET)
+  @RequestMapping(method = RequestMethod.GET)
   public List<Todo> findAll() {
     logger.info("findAll");
     List<Todo> todos = new ArrayList<Todo>();

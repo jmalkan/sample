@@ -140,6 +140,7 @@
     <org.apache.maven.plugins.failsafe-version>2.12.2</org.apache.maven.plugins.failsafe-version>
     <org.apache.maven.plugins.dependency-version>2.4</org.apache.maven.plugins.dependency-version>
 
+    <org.codehaus.jackson-version>1.9.9</org.codehaus.jackson-version>
     <org.codehaus.mojo.plugins.tomcat-version>1.1</org.codehaus.mojo.plugins.tomcat-version>
     <org.codehaus.mojo.plugins.findbugs-version>2.5.1</org.codehaus.mojo.plugins.findbugs-version>
     <org.codehaus.mojo.plugins.cobertura-version>2.5.1</org.codehaus.mojo.plugins.cobertura-version>
@@ -368,6 +369,11 @@
       <groupId>commons-configuration</groupId>
       <artifactId>commons-configuration</artifactId>
       <version>${commons.configuration-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>${org.codehaus.jackson-version}</version>
     </dependency>
     <!-- Test scoped dependencies -->
     <dependency>
