@@ -1,14 +1,17 @@
 package com.jiggy.sample.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +21,11 @@ import com.jiggy.sample.todo.TodoService;
 
 /**
  * Handles requests for the application todos request.
+ * 
+ * Created on Sept 1, 2012
+ * 
+ * @author jmalkan
+ * @version $Revision$
  */
 @Controller
 @RequestMapping("todos")
@@ -46,33 +54,56 @@ public class TodosController {
   @RequestMapping(method = RequestMethod.GET)
   public List<Todo> findAll() {
     logger.info("findAll");
-    List<Todo> todos = new ArrayList<Todo>();
     
-    //List<Todo> todos = this.todoService.findAll();
-    todos.add(new Todo(new Long(1), "wake up"));
-    todos.add(new Todo(new Long(2), "do dishes"));
-    todos.add(new Todo(new Long(3), "take out trash"));
-    
-    return todos;
+    return this.todoService.findAll();
   }
   
   @ResponseBody
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Todo findById(@PathVariable String id) {
+  public Todo findById(@PathVariable Long id) {
     logger.info("findById");
     
-    return new Todo(new Long(1), "wake up");
+    return this.todoService.findById(id);
   }
   
   @ResponseBody
   @RequestMapping(value = "/find", method = RequestMethod.GET)
-  public List<Todo> find(@RequestBody String body) {
-    logger.info("find body: {}", body);
-    List<Todo> todos = new ArrayList<Todo>();
+  public List<Todo> find(HttpServletRequest request) {
+    logger.info("find");
+    Map<String, String> searchCriteria = getSearchCriteria(request);
     
-    todos.add(new Todo(new Long(1), "wake up"));
-    todos.add(new Todo(new Long(2), "do dishes"));
+    return this.todoService.find(null);
+  }
+  
+  @ResponseBody
+  @RequestMapping(value = "/findOne", method = RequestMethod.GET)
+  public Todo findOne(HttpServletRequest request) {
+    logger.info("findOne");
+    Map<String, String> searchCriteria = getSearchCriteria(request);
     
-    return todos;
+    return this.todoService.findOne(null);
+  }
+  
+  @ResponseBody
+  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  public void delete(@PathVariable Long id) {
+    logger.info("delete");
+    
+    this.todoService.delete(id);
+  }
+  
+  private Map<String, String> getSearchCriteria(HttpServletRequest request) {
+    logger.debug("find queryString: {}", request.getQueryString());
+    Map<String, String> searchCriteria = new HashMap<String, String>();
+    Map<Object, Object> requestParameterMap = request.getParameterMap();
+    
+    if (requestParameterMap != null) {
+      for (Entry<Object, Object> entrySet:requestParameterMap.entrySet()) {
+        logger.debug("find {}={}", entrySet.getKey(), entrySet.getValue());
+        searchCriteria.put(entrySet.getKey().toString(), entrySet.getValue().toString());
+      };
+    };
+    
+    return searchCriteria;
   }
 }

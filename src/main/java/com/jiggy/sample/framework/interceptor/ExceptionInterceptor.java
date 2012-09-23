@@ -81,7 +81,7 @@ public final class ExceptionInterceptor implements MethodInterceptor {
     
     if (coreException instanceof ValidationException) {
       status = Status.PRECONDITION_FAILED; // Precondition Failed
-      message = ((ValidationException) coreException).toJSON();
+      //message = ((ValidationException) coreException).toJSON();
     } else {
       try {
         JSONObject errorJSONObject = new JSONObject();

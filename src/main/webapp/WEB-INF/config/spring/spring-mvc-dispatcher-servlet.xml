@@ -20,15 +20,32 @@
   <!-- Enabling annotation and post processors -->
   <context:annotation-config />
   <!-- context:load-time-weaver/-->
+  
+  <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+  
+  <!-- bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+    <property name="interceptors">
+      <bean class="example.MyInterceptor"/>
+    </property>
+  </bean-->
+  
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <property name="messageConverters">
+      <list>
+        <ref bean="mappingJacksonHttpMessageConverter" />
+      </list>
+    </property>
+  </bean>
 
   <bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     <property name="order" value="1" />
+    <property name="defaultContentType" value="#{T(org.springframework.http.MediaType).APPLICATION_JSON}"/>
     
     <property name="mediaTypes">
       <map>
-        <entry key="json" value="application/json" />
         <entry key="xml" value="application/xml" />
-        <!-- entry key="rss" value="application/rss+xml" /-->
+        <entry key="json" value="application/json" />
+        <entry key="rss" value="application/rss+xml" />
       </map>
     </property>
     <property name="defaultViews">
@@ -56,6 +73,22 @@
     </property>
     <property name="suffix">
       <value>.jsp</value>
+    </property>
+  </bean>
+  
+  
+  
+  
+  <!-- Allow Exceptions to be handled in annotated methods if desired. Otherwise fallback to the 'restExceptionResolver' below: -->
+  <bean id="annotationMethodHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+    <property name="order" value="0" />
+  </bean>
+  
+  <bean id="restExceptionResolver" class="com.jiggy.sample.framework.web.handler.RestExceptionHandler">
+    <property name="messageConverters">
+      <list>
+        <ref bean="mappingJacksonHttpMessageConverter" />
+      </list>
     </property>
   </bean>
 </beans>

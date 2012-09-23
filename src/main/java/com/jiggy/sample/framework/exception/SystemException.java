@@ -1,18 +1,17 @@
 package com.jiggy.sample.framework.exception;
 
-
 /**
- * Base class for Validation Exceptions.
+ * Base class for System Exceptions.
  * 
  * Created on Sept 1, 2012
  * 
  * @author jmalkan
  * @version $Revision$
  */
-public class ValidationException extends AbstractException {
+public class SystemException extends AbstractException {
   private static final long serialVersionUID = 1L;
 
-  public ValidationException(Error error) {
+  public SystemException(Error error) {
     super(error);
   }
 }

@@ -17,13 +17,13 @@
   <!-- Scans within the base package of the application for @Components to configure as beans -->
   <!-- @Controller, @Service, @Configuration, etc. -->
   <context:component-scan base-package="com.jiggy.sample" />
-
-  <!-- Enables the Spring MVC @Controller programming model -->
-  <mvc:annotation-driven />
   
   <!-- Enabling annotation and post processors -->
   <context:annotation-config />
   <!-- context:load-time-weaver/-->
+  
+  <!-- support classes without interface -->
+  <!-- aop:aspectj-autoproxy proxy-target-class="true"/-->
   
   <!-- Data Source -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -32,6 +32,12 @@
     <property name="username" value="root" />
     <property name="password" value="password" />
   </bean>
+  
+  
+  <!-- jdbc:embedded-database id="dataSource">
+    <jdbc:script location="classpath:schema.sql"/>
+    <jdbc:script location="classpath:test-data.sql"/>
+  </jdbc:embedded-database-->
 
   <!-- Hibernate SessionFactory -->
   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -113,28 +119,14 @@
   
   <!-- Define Interceptors -->
   <bean id="auditAdvice" class="com.jiggy.sample.framework.interceptor.AuditInterceptor" />
-  <bean id="exceptionAdvice" class="com.jiggy.sample.framework.interceptor.ExceptionInterceptor" />
-  
-  <!-- support classes without interface -->
-  <!-- aop:aspectj-autoproxy proxy-target-class="true"/-->
-  
-  <!-- ensure that the audit and exception advice runs for any execution of an operation defined by the Controller annotation -->
-  <aop:config>
-    <!-- aop:pointcut id="controllerOperation" expression="execution(public String com..*.controller.*(..))"/-->
-    <aop:pointcut id="controllerOperation" expression="within(@org.springframework.stereotype.Controller *)"/>
-    <aop:advisor advice-ref="auditAdvice" pointcut-ref="controllerOperation" order="1"/>
-    <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="controllerOperation" order="2"/>
-  </aop:config>
 
   <!-- ensure that the transactional and security advice runs for any execution of an operation defined by the Service interface -->
   <aop:config>
+    <!-- aop:pointcut id="controllerOperation" expression="execution(public String com..*.service.*(..))"/-->
+    <!-- aop:pointcut id="controllerOperation" expression="within(@org.springframework.stereotype.Service *)"/-->
     <aop:pointcut id="serviceOperation" expression="execution(* com.jiggy.sample.framework.service.Service+.*(..))"/>
-    <!-- aop:advisor advice-ref="securityAdvice" pointcut-ref="managerOperation"/-->
-    <aop:advisor advice-ref="transactionAdvice" pointcut-ref="serviceOperation"/>
+    <!-- aop:advisor advice-ref="securityAdvice" pointcut-ref="serviceOperation"/-->
+    <aop:advisor advice-ref="auditAdvice" pointcut-ref="serviceOperation" order="1"/>
+    <aop:advisor advice-ref="transactionAdvice" pointcut-ref="serviceOperation"  order="2"/>
   </aop:config>
-  
-  <!-- jdbc:embedded-database id="dataSource">
-    <jdbc:script location="classpath:schema.sql"/>
-    <jdbc:script location="classpath:test-data.sql"/>
-  </jdbc:embedded-database-->
 </beans>

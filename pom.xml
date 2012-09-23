@@ -5,7 +5,7 @@
   <packaging>war</packaging>
   <version>1.0</version>
   <name>sample Online Maven Webapp</name>
-
+  
   <description>sample Online Maven Webapp.</description>
   <url>http://www.sample.jiggy-malkan.com</url>
   <inceptionYear>August 01, 2011</inceptionYear>

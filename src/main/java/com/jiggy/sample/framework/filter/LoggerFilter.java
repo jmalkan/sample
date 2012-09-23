@@ -24,6 +24,8 @@ import com.jiggy.sample.security.UserProfile;
 /**
  * This filter registers Diagnostic information to the Logger.
  * 
+ * Created on Sept 1, 2012
+ * 
  * @author jmalkan
  * @version $Revision$
  */

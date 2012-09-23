@@ -12,6 +12,8 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.jiggy.sample.framework.entity.Entity;
 import com.jiggy.sample.framework.searchengine.FilterExpression;
@@ -41,6 +43,7 @@ import com.jiggy.sample.framework.searchengine.SearchCriteria;
  */
 public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<T>, FilterAdvice {
   private final static Long NULL_ID = -1l;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
   
   private SessionFactory sessionFactory;
   private Class<T> persistentClass;
@@ -64,7 +67,11 @@ public abstract class AbstractHibernateDBDAO<T extends Entity> implements DBDAO<
   }
   
   
-  
+  public Logger getLogger() {
+    return logger;
+  }
+
+
   @Override
   public final T findById(final Long id) {
     if (id == null) {

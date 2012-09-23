@@ -1,5 +1,5 @@
 <html>
   <body>
-    <h2>Welcome to PASW OLE!</h2>
+    <h2>Welcome to Sample App!</h2>
   </body>
 </html>
